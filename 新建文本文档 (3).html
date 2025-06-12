@@ -1,0 +1,405 @@
+```html
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel 表格</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            animation: backgroundShift 10s ease-in-out infinite alternate;
+        }
+
+        @keyframes backgroundShift {
+            0% { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+            100% { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            animation: slideIn 1s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); }
+            to { text-shadow: 0 0 20px rgba(102, 126, 234, 0.5); }
+        }
+
+        .excel-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            animation: tableAppear 1.5s ease-out;
+        }
+
+        @keyframes tableAppear {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .excel-table th, .excel-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .excel-table th {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .excel-table tr:nth-child(even) {
+            background: rgba(102, 126, 234, 0.05);
+        }
+
+        .excel-table tr:hover {
+            background: rgba(102, 126, 234, 0.1);
+            transform: scale(1.01);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .excel-table td[contenteditable="true"] {
+            cursor: text;
+            background: rgba(255, 255, 255, 0.8);
+            transition: all 0.3s ease;
+        }
+
+        .excel-table td[contenteditable="true"]:focus {
+            background: rgba(102, 126, 234, 0.1);
+            outline: 2px solid #667eea;
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
+        }
+
+        .excel-table td[contenteditable="true"]:hover {
+            background: rgba(102, 126, 234, 0.05);
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            display: block;
+            margin: 30px auto 0;
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4);
+            background: linear-gradient(135deg, #764ba2, #667eea);
+        }
+
+        .submit-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .floating-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 1; }
+            50% { transform: translateY(-20px) rotate(180deg); opacity: 0.5; }
+        }
+
+        .success-message {
+            display: none;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+            animation: successPulse 0.5s ease-out;
+        }
+
+        @keyframes successPulse {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <!-- 浮动粒子特效 -->
+    <div class="floating-particles" id="particles"></div>
+
+    <div class="container">
+        <h1>Excel 数据表格</h1>
+        
+        <div class="success-message" id="successMessage">
+            数据提交成功！
+        </div>
+
+        <table class="excel-table" id="excelTable">
+            <thead>
+                <tr>
+                    <th>姓名</th>
+                    <th>部门</th>
+                    <th>职位</th>
+                    <th>邮箱</th>
+                    <th>电话</th>
+                    <th>备注</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <!-- 现有数据行（模拟从Issues同步的数据） -->
+                <tr>
+                    <td>张三</td>
+                    <td>技术部</td>
+                    <td>前端工程师</td>
+                    <td>zhangsan@example.com</td>
+                    <td>13800138001</td>
+                    <td>负责前端开发</td>
+                </tr>
+                <tr>
+                    <td>李四</td>
+                    <td>产品部</td>
+                    <td>产品经理</td>
+                    <td>lisi@example.com</td>
+                    <td>13800138002</td>
+                    <td>负责产品规划</td>
+                </tr>
+                <!-- 可编辑的新行 -->
+                <tr class="editable-row">
+                    <td contenteditable="true" placeholder="请输入姓名"></td>
+                    <td contenteditable="true" placeholder="请输入部门"></td>
+                    <td contenteditable="true" placeholder="请输入职位"></td>
+                    <td contenteditable="true" placeholder="请输入邮箱"></td>
+                    <td contenteditable="true" placeholder="请输入电话"></td>
+                    <td contenteditable="true" placeholder="请输入备注"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <button class="submit-btn" onclick="submitData()">提交到 Excel</button>
+    </div>
+
+    <script>
+        // 创建浮动粒子特效
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // 初始化粒子特效
+        createParticles();
+
+        // 模拟从Coding Issues加载数据的函数
+        async function loadExcelData() {
+            // 实际实现中，这里会调用Coding Issues API获取数据
+            // const response = await fetch('CODING_ISSUES_API_ENDPOINT');
+            // const issues = await response.json();
+            // 将issues数据转换为表格行
+            console.log('从Coding Issues同步Excel数据...');
+        }
+
+        // 提交数据到Coding Issues
+        async function submitData() {
+            const editableRows = document.querySelectorAll('.editable-row');
+            const tableData = [];
+
+            editableRows.forEach(row => {
+                const cells = row.querySelectorAll('td[contenteditable="true"]');
+                const rowData = [];
+                let hasData = false;
+
+                cells.forEach(cell => {
+                    const value = cell.textContent.trim();
+                    rowData.push(value);
+                    if (value) hasData = true;
+                });
+
+                if (hasData) {
+                    tableData.push({
+                        name: rowData[0],
+                        department: rowData[1],
+                        position: rowData[2],
+                        email: rowData[3],
+                        phone: rowData[4],
+                        note: rowData[5]
+                    });
+                }
+            });
+
+            if (tableData.length === 0) {
+                alert('请填写至少一行数据');
+                return;
+            }
+
+            try {
+                // 实际API调用代码：
+                // const response = await fetch('CODING_ISSUES_API_ENDPOINT', {
+                //     method: 'POST',
+                //     headers: {
+                //         'Content-Type': 'application/json',
+                //         'Authorization': 'token YOUR_ACCESS_TOKEN'
+                //     },
+                //     body: JSON.stringify({
+                //         title: 'Excel数据提交 - ' + new Date().toLocaleString(),
+                //         body: JSON.stringify(tableData, null, 2),
+                //         labels: ['excel-data']
+                //     })
+                // });
+
+                // 模拟提交成功
+                console.log('提交数据到Coding Issues:', tableData);
+                
+                // 显示成功消息
+                const successMessage = document.getElementById('successMessage');
+                successMessage.style.display = 'block';
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                }, 3000);
+
+                // 添加新提交的数据到表格显示区域
+                addDataToTable(tableData);
+                
+                // 清空可编辑行
+                clearEditableRows();
+
+            } catch (error) {
+                console.error('提交失败:', error);
+                alert('提交失败，请重试');
+            }
+        }
+
+        // 将数据添加到表格显示区域
+        function addDataToTable(dataArray) {
+            const tableBody = document.getElementById('tableBody');
+            const editableRow = document.querySelector('.editable-row');
+            
+            dataArray.forEach(data => {
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td>${data.name}</td>
+                    <td>${data.department}</td>
+                    <td>${data.position}</td>
+                    <td>${data.email}</td>
+                    <td>${data.phone}</td>
+                    <td>${data.note}</td>
+                `;
+                tableBody.insertBefore(newRow, editableRow);
+            });
+        }
+
+        // 清空可编辑行
+        function clearEditableRows() {
+            const editableCells = document.querySelectorAll('.editable-row td[contenteditable="true"]');
+            editableCells.forEach(cell => {
+                cell.textContent = '';
+            });
+        }
+
+        // 定时同步数据（模拟Coding CI定时任务）
+        setInterval(() => {
+            loadExcelData();
+        }, 300000); // 每5分钟同步一次
+
+        // 页面加载时初始化数据
+        window.addEventListener('load', () => {
+            loadExcelData();
+        });
+
+        // 为可编辑单元格添加占位符效果
+        document.addEventListener('DOMContentLoaded', function() {
+            const editableCells = document.querySelectorAll('td[contenteditable="true"]');
+            editableCells.forEach(cell => {
+                const placeholder = cell.getAttribute('placeholder');
+                if (placeholder && !cell.textContent.trim()) {
+                    cell.style.color = '#999';
+                    cell.textContent = placeholder;
+                }
+
+                cell.addEventListener('focus', function() {
+                    if (this.textContent === placeholder) {
+                        this.textContent = '';
+                        this.style.color = '#333';
+                    }
+                });
+
+                cell.addEventListener('blur', function() {
+                    if (!this.textContent.trim()) {
+                        this.style.color = '#999';
+                        this.textContent = placeholder;
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+```
+
+<!-- 
+实现逻辑说明：
+1. 前端使用纯HTML+JavaScript，包含Excel样式的表格
+2. 用户直接在表格中编辑数据，像操作Excel一样
+3. 点击提交按钮时，JavaScript收集表格数据并通过fetch API提交到Coding Issues
+4. 需要配置Coding Issues的API端点和访问令牌
+5. Coding CI定时任务会读取Issues中的数据，更新Excel文件
+6. 前端定时调用API同步最新数据，实现多用户协作效果
+7. 包含华丽的CSS3动画特效：渐变背景、粒子动画、悬停效果等
+8. 表格样式模仿Excel，支持直接编辑单元格内容
+-->
