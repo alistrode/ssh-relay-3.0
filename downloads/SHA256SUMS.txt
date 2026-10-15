@@ -1,0 +1,4 @@
+cd0e8f301cbb6f414479df90f0cea32f26848a5d17864626cc4864106a58e477  ssh-remote-linux-portable.tar.xz
+b1561b80ebc84166721803201b2fc9c92951e63948d8ecd16663727ff34e250e  ssh-remote-win10-portable.zip
+3ee2714d1cf6d6b161d18701d3e4ea2b1073edfb437b10d22271ae548e05d6e2  connect-linux-public-ssh-skill.zip
+03b0d88b65b8442da6836d7b60817a35c8d80d11a2be9efaa5a55897ed8668ac  connect-win10-public-ssh-skill.zip
