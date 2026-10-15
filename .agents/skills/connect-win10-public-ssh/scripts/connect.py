@@ -26,10 +26,14 @@ def main():
     parser.add_argument('--command')
     args = parser.parse_args()
     raw = pathlib.Path(args.info_file).read_text(encoding='utf-8-sig')
-    match = re.search(r'SSH_RELAY_CONNECT_BEGIN\s*=*\s*TARGET=(linux|win10)\s+BUNDLE=([A-Za-z0-9+/=]+)', raw)
-    if not match:
+    section = re.search(r'^[= \t]*SSH_RELAY_CONNECT_BEGIN[= \t]*\r?\n(.*?)^[= \t]*SSH_RELAY_CONNECT_END[= \t]*$', raw, re.M | re.S)
+    if not section:
         raise ValueError('Missing complete SSH_RELAY_CONNECT block; do not use old Cloudflare information.')
-    compressed = base64.b64decode(match.group(2), validate=True)
+    match = re.search(r'(?m)^TARGET=(linux|win10)\s*$', section.group(1))
+    if not match or 'BUNDLE=' not in section.group(1):
+        raise ValueError('Missing TARGET or BUNDLE field')
+    encoded = re.sub(r'\s+', '', section.group(1).split('BUNDLE=', 1)[1])
+    compressed = base64.b64decode(encoded, validate=True)
     if len(compressed) > 8192:
         raise ValueError('Oversized connection block')
     with gzip.GzipFile(fileobj=io.BytesIO(compressed)) as stream:
