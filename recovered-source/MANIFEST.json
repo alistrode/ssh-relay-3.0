@@ -1,0 +1,482 @@
+[
+  {
+    "path": "mcp-ssh-manager-near-end/cli/README.md",
+    "bytes": 5480,
+    "sha256": "064e62140061de4ee405168c5bc2741c3fff4b6a94c0dd66adfe13bdb9691c75"
+  },
+  {
+    "path": "mcp-ssh-manager-near-end/cli/build.sh",
+    "bytes": 6153,
+    "sha256": "415558e99380f3bfab2e441046dd60717621d90fcd17ddbb28c9a6372e461e22"
+  },
+  {
+    "path": "mcp-ssh-manager-near-end/cli/commands/server.sh",
+    "bytes": 11163,
+    "sha256": "23e8c8fc38abb59f88f96176c511d4c824567cae47c2ac07b08a2042d5370780"
+  },
+  {
+    "path": "mcp-ssh-manager-near-end/cli/commands/tools.sh",
+    "bytes": 22107,
+    "sha256": "c269dd261fdde84d2553d3b492b64f9014de4a1f0dad255342e5c7e8a1e07a74"
+  },
+  {
+    "path": "mcp-ssh-manager-near-end/cli/demo.sh",
+    "bytes": 3444,
+    "sha256": "3fc6c64652b26504d3f04ecf826873c07d4ea86b0037665d337a45fbd2a50aff"
+  },
+  {
+    "path": "mcp-ssh-manager-near-end/cli/install.sh",
+    "bytes": 5164,
+    "sha256": "a822f7b8f72828205880b698dfe571f32d87632117d2231594c7f657df6352d1"
+  },
+  {
+    "path": "mcp-ssh-manager-near-end/cli/lib/colors.sh",
+    "bytes": 3716,
+    "sha256": "16de124a93a27e6b2273dde812c0e07007ff297327c60c52a03dc17bbbc4835b"
+  },
+  {
+    "path": "mcp-ssh-manager-near-end/cli/lib/config.sh",
+    "bytes": 15780,
+    "sha256": "d623a1da004dee278513fb1141c1d721f0970189db8c2341f0ee7acc5d8d0072"
+  },
+  {
+    "path": "mcp-ssh-manager-near-end/cli/lib/menu.sh",
+    "bytes": 20205,
+    "sha256": "175df0841f586bc344c42ef5e8de11fcc857ceaac7510fba9ccd324ffd04b7d8"
+  },
+  {
+    "path": "mcp-ssh-manager-near-end/cli/migrate.sh",
+    "bytes": 5311,
+    "sha256": "c688ac0f8183ac21a1cc5d5f92c61052111124e85fb3b60213a7b90ca2498bcb"
+  },
+  {
+    "path": "mcp-ssh-manager-near-end/cli/ssh-manager",
+    "bytes": 17662,
+    "sha256": "e131eb02d63acd7fdee9cccab1969c4c3cadf8fae358c6a0de3d16458c4d3699"
+  },
+  {
+    "path": "mcp-ssh-manager-near-end/cli/ssh-manager.js",
+    "bytes": 5572,
+    "sha256": "d0ff558acba385ebd369af868304fc1c7c3b5321e9f08a5bb737c78b124640e3"
+  },
+  {
+    "path": "mcp-ssh-manager-near-end/cloudflare-codex-client/AGENTS.md",
+    "bytes": 1405,
+    "sha256": "fbde5f43869fad18f3e86e8cfa6603d4b2c0f311d2ffb63427115a9ece175d53"
+  },
+  {
+    "path": "mcp-ssh-manager-near-end/cloudflare-codex-client/import-cloudflare-ssh.ps1",
+    "bytes": 6592,
+    "sha256": "591e08dde926ac32080ac936453cb758945c92d3f09f6288d6e6f92525ada388"
+  },
+  {
+    "path": "mcp-ssh-manager-near-end/cloudflare-codex-client/使用说明.txt",
+    "bytes": 2533,
+    "sha256": "1908e16dc6377573abe6d7d1c7c6e183dcf9240507f0833aa7f8f092c052a7c7"
+  },
+  {
+    "path": "mcp-ssh-manager-near-end/cloudflare-codex-client/停止本地Cloudflare代理.cmd",
+    "bytes": 348,
+    "sha256": "5286f53e0f927dcd990f30b81042990d9ce2842ea3acedec9c189008a65b3c04"
+  },
+  {
+    "path": "mcp-ssh-manager-near-end/cloudflare-codex-client/双击接入Codex.vbs",
+    "bytes": 427,
+    "sha256": "b6a3e005edbd45ffe1c7da8a82abfdba26182bda0c581a29d979621e605e5d52"
+  },
+  {
+    "path": "mcp-ssh-manager-near-end/package-lock.json",
+    "bytes": 115122,
+    "sha256": "3b09524ad726f83451e421934900f393441ce046a852db2784f63d21398bf63c"
+  },
+  {
+    "path": "mcp-ssh-manager-near-end/package.json",
+    "bytes": 4320,
+    "sha256": "a3b9451f5d0a01c4a0f313963f0c61985035da7ec3e5cc53e08f4ffa165f1e17"
+  },
+  {
+    "path": "mcp-ssh-manager-near-end/profiles/README.md",
+    "bytes": 1103,
+    "sha256": "62a1b722ff7c96b7a24f8e0ba4bb26403ac78f99b10617f8c59abde746399d61"
+  },
+  {
+    "path": "mcp-ssh-manager-near-end/profiles/default.json",
+    "bytes": 1696,
+    "sha256": "9b1248d216265da35ad3eabcc89048f505b72e287353300d239d57080ec49ace"
+  },
+  {
+    "path": "mcp-ssh-manager-near-end/profiles/docker.json",
+    "bytes": 2093,
+    "sha256": "a65022e05ff2f367de4f820fb03fea792b9406dede351f2a8d0cce2cfed4e7cb"
+  },
+  {
+    "path": "mcp-ssh-manager-near-end/profiles/frappe.json",
+    "bytes": 3573,
+    "sha256": "387ecf0e756c703cb68d24789a124b059748f0752777322201ca2611c9a895a2"
+  },
+  {
+    "path": "mcp-ssh-manager-near-end/profiles/nodejs.json",
+    "bytes": 1795,
+    "sha256": "fc33328c948a45fd291484f9bd91cd69f9e488ed4d343528c1b2f7753e75f90a"
+  },
+  {
+    "path": "mcp-ssh-manager-near-end/src/audit.js",
+    "bytes": 3250,
+    "sha256": "72c8fd058774d8f98a58ccfdcd702d274b5b154942e8877314a91b1a5cd75f5f"
+  },
+  {
+    "path": "mcp-ssh-manager-near-end/src/backup-manager.js",
+    "bytes": 12019,
+    "sha256": "2fd1c493845d38032ee66ceb5b6c3178b6d6b31f5268d192c414c1eeae625843"
+  },
+  {
+    "path": "mcp-ssh-manager-near-end/src/command-aliases.js",
+    "bytes": 3741,
+    "sha256": "9d1d4c3d38be9f2077c6401aa40d3b05aa05e37333fefe23d5fb3ac6e2ff1293"
+  },
+  {
+    "path": "mcp-ssh-manager-near-end/src/config-loader.js",
+    "bytes": 17953,
+    "sha256": "21c5c96ca39e0552278819bfce532e2fe627564369e1b648d54485ca290a76b2"
+  },
+  {
+    "path": "mcp-ssh-manager-near-end/src/config.js",
+    "bytes": 2294,
+    "sha256": "1608448989b79ff819bff95748caed6140be5046303b5db66873fc9b1c7a016b"
+  },
+  {
+    "path": "mcp-ssh-manager-near-end/src/database-manager.js",
+    "bytes": 19436,
+    "sha256": "bb96fd5bf0bb201c7694ec435f84a0c03ccdb66adffe5bc9838177f9da8462bf"
+  },
+  {
+    "path": "mcp-ssh-manager-near-end/src/deploy-helper.js",
+    "bytes": 4211,
+    "sha256": "ba678404e78a07b6ab160aa83968e8a0e44fe5fab02da9cad712b3961f704b13"
+  },
+  {
+    "path": "mcp-ssh-manager-near-end/src/health-monitor.js",
+    "bytes": 13171,
+    "sha256": "6bfd10e76ae1c08962e40fb9275f768d2b43640f04282098b6c8c7f03dd72e4f"
+  },
+  {
+    "path": "mcp-ssh-manager-near-end/src/hooks-system.js",
+    "bytes": 8130,
+    "sha256": "bcd70c88462a6cd3e95c332206f9c02a0ad36a8d42139e76a522b9c0fcf344df"
+  },
+  {
+    "path": "mcp-ssh-manager-near-end/src/index.js",
+    "bytes": 178320,
+    "sha256": "896ae003ad8978ca5b8c29147d43b2a27be8b2e533f28a802255f10b2255e874"
+  },
+  {
+    "path": "mcp-ssh-manager-near-end/src/logger.js",
+    "bytes": 8591,
+    "sha256": "61bc9d99d2011b7c182950d8ad9d231533fdd3bde73febe9f5400df79e304611"
+  },
+  {
+    "path": "mcp-ssh-manager-near-end/src/policy.js",
+    "bytes": 9127,
+    "sha256": "9cc36ea5819e552ce2258eb9a56dcfa171e65e03b45d99061e585fdf72d64259"
+  },
+  {
+    "path": "mcp-ssh-manager-near-end/src/profile-loader.js",
+    "bytes": 3949,
+    "sha256": "a61370e8312ea83ba26181934e9eddcd02539db8644f16a9c654e9132fe4e930"
+  },
+  {
+    "path": "mcp-ssh-manager-near-end/src/rsync-path.js",
+    "bytes": 3031,
+    "sha256": "d4f0d6e95e4daa4b79037265a0e765905155df121e0cfb7b5ed35842c47d12fb"
+  },
+  {
+    "path": "mcp-ssh-manager-near-end/src/rsync-stats.js",
+    "bytes": 3729,
+    "sha256": "2487e4883b17078e33094505ec5f881f59a11afc3d9edf635af7c1ceb65f3779"
+  },
+  {
+    "path": "mcp-ssh-manager-near-end/src/server-aliases.js",
+    "bytes": 2831,
+    "sha256": "fee8cd6a77097aa332c1f42a0c8304783ee7f10328e808ea4305e3454f1a936b"
+  },
+  {
+    "path": "mcp-ssh-manager-near-end/src/server-config-manager.js",
+    "bytes": 2490,
+    "sha256": "5139ec23e300cac2073414846a9db5425bf7b89bb389de41a5ccff36a3267cc6"
+  },
+  {
+    "path": "mcp-ssh-manager-near-end/src/server-groups.js",
+    "bytes": 16138,
+    "sha256": "acd4e143ec6c1158c45fdbd3880f07a1447ada05ba03594cf6b705841f77da97"
+  },
+  {
+    "path": "mcp-ssh-manager-near-end/src/session-manager.js",
+    "bytes": 9868,
+    "sha256": "78c4077209f8eaf15948aa1ef9e718d34585735f85c47d374a539ca612053dfa"
+  },
+  {
+    "path": "mcp-ssh-manager-near-end/src/shell-quote.js",
+    "bytes": 2030,
+    "sha256": "c0f971614abb497c8bc4cf79b691d1cb675c46dcf98e477cddef6590de86aca8"
+  },
+  {
+    "path": "mcp-ssh-manager-near-end/src/ssh-key-manager.js",
+    "bytes": 9841,
+    "sha256": "318fed6af82e77f561f3e34af489f10d2769ebade681bdbb24ec1ad7ae225a05"
+  },
+  {
+    "path": "mcp-ssh-manager-near-end/src/ssh-manager.js",
+    "bytes": 17604,
+    "sha256": "5b69958b25a760b6b2eaf4f2b26c8bdf0a06df125a386e9cea515ebdebd450cd"
+  },
+  {
+    "path": "mcp-ssh-manager-near-end/src/tool-config-manager.js",
+    "bytes": 11679,
+    "sha256": "5396b5202d10e34b1ed49b9f6e752116ed35e782c4a950d44256119de74314cc"
+  },
+  {
+    "path": "mcp-ssh-manager-near-end/src/tool-registry.js",
+    "bytes": 5306,
+    "sha256": "9acac1d515d1f7a636f25b5cbf7e56444fe839ab55717131eff6c6a94f75afc6"
+  },
+  {
+    "path": "mcp-ssh-manager-near-end/src/tunnel-manager.js",
+    "bytes": 16216,
+    "sha256": "8404dc233d4fbda4fad28943fa4953b7478a02a310355ba2e532f1753d962190"
+  },
+  {
+    "path": "mcp-ssh-manager-near-end/start-mcp-ssh-manager.cmd",
+    "bytes": 244,
+    "sha256": "9752caab7ff37bf669c71224c3ba4dc2e0a8f1229a845a40cc1486644ef51d37"
+  },
+  {
+    "path": "mcp-ssh-manager-near-end/start-mcp-ssh-manager.ps1",
+    "bytes": 2713,
+    "sha256": "39916b6e52a414e2f75c08d2c49fe7f6025fe18fd17dd74f5f8d32e0498be0e9"
+  },
+  {
+    "path": "mcp-ssh-manager-near-end/启动说明.md",
+    "bytes": 2945,
+    "sha256": "3fef149e6286cd36dddad9eae3aa6102957da1630fd12e6e0cb49073e144c93d"
+  },
+  {
+    "path": "original-archives/mcp-ssh-manager-near-end-slim.zip",
+    "bytes": 181217,
+    "sha256": "782df42d6c7caba457dca913c22901a34dabddc6fe436bf481c73b10a6157899"
+  },
+  {
+    "path": "original-archives/远端Win10-Cloudflare-SSH.zip",
+    "bytes": 24759799,
+    "sha256": "969720be38b453854368727ba45ebf6f3afcca03687d6816308c09ae04826611"
+  },
+  {
+    "path": "portable-ssh-server/diagnose-portable-ssh.ps1",
+    "bytes": 7677,
+    "sha256": "c2febc5d87f1b3d080f8ad439d232568a6c1476b49c47820bfd25e3b15e7495b"
+  },
+  {
+    "path": "portable-ssh-server/portable-ssh.ps1",
+    "bytes": 5325,
+    "sha256": "bd2386a8141e64c97ff12ce8619a3be85cefe162f3dd3bec534e6dab5f48dccd"
+  },
+  {
+    "path": "portable-ssh-server/runtime/OpenSSH-Win64/FixHostFilePermissions.ps1",
+    "bytes": 16981,
+    "sha256": "c53ff5506854118fa87d8e5e0b3d4779f971036850c2a45c23d7c42227db2a3a"
+  },
+  {
+    "path": "portable-ssh-server/runtime/OpenSSH-Win64/FixUserFilePermissions.ps1",
+    "bytes": 15957,
+    "sha256": "916523692e21ed9ac8fffa78f902cc65383aec43f8022b068fa0df83dcb771c5"
+  },
+  {
+    "path": "portable-ssh-server/runtime/OpenSSH-Win64/LICENSE.txt",
+    "bytes": 21552,
+    "sha256": "568c41f330a50a7d2d2eba9d3f7807caaaf4e091705ab6652ec26a3f9d1acfdb"
+  },
+  {
+    "path": "portable-ssh-server/runtime/OpenSSH-Win64/NOTICE.txt",
+    "bytes": 36008,
+    "sha256": "2cd5f5d0064bc909dfe0f0fc8f4787882c7c379f2730d89e5faa0c2bc57c620b"
+  },
+  {
+    "path": "portable-ssh-server/runtime/OpenSSH-Win64/OpenSSHUtils.psd1",
+    "bytes": 15751,
+    "sha256": "6f479075fc4b15014219ae90133d3e3fc18702179172c0099c4637101a380168"
+  },
+  {
+    "path": "portable-ssh-server/runtime/OpenSSH-Win64/OpenSSHUtils.psm1",
+    "bytes": 48818,
+    "sha256": "731d9b35a340307671426b1147ec9ad1a39b098f7a77ef2384339a53337f7221"
+  },
+  {
+    "path": "portable-ssh-server/runtime/OpenSSH-Win64/_manifest/spdx_2.2/ESRPClientLogs1022194139642.json",
+    "bytes": 49234,
+    "sha256": "e85326cd80813cd97e02bbfb394a714a84ee23d23eb93e0de961c1c8e54aab4c"
+  },
+  {
+    "path": "portable-ssh-server/runtime/OpenSSH-Win64/_manifest/spdx_2.2/bsi.cose",
+    "bytes": 5788,
+    "sha256": "454be09dce859888c04a2c1d4fdc4e96dae29c6108a2bed5ad29a5186cc34b0d"
+  },
+  {
+    "path": "portable-ssh-server/runtime/OpenSSH-Win64/_manifest/spdx_2.2/bsi.json",
+    "bytes": 978,
+    "sha256": "13e6bdcf23298bd5fdf6b9cec16bb31a6845459422667cf193dbf89fb2fbde42"
+  },
+  {
+    "path": "portable-ssh-server/runtime/OpenSSH-Win64/_manifest/spdx_2.2/manifest.cat",
+    "bytes": 12056,
+    "sha256": "4c252b16f9b7d074fc6d1e166cbf6736fc7dca194c62a886f2613e00ff0addf9"
+  },
+  {
+    "path": "portable-ssh-server/runtime/OpenSSH-Win64/_manifest/spdx_2.2/manifest.spdx.cose",
+    "bytes": 5788,
+    "sha256": "70b95bf4ac77ee0934b0e94c88d9941ee1f84df143e3147b57f97cffa7db6b8b"
+  },
+  {
+    "path": "portable-ssh-server/runtime/OpenSSH-Win64/_manifest/spdx_2.2/manifest.spdx.json",
+    "bytes": 49300,
+    "sha256": "fc7bb67301a62b7df3d2b4a0bd70632a426a99d706350f07929d50c0c95ca050"
+  },
+  {
+    "path": "portable-ssh-server/runtime/OpenSSH-Win64/_manifest/spdx_2.2/manifest.spdx.json.sha256",
+    "bytes": 64,
+    "sha256": "cb22e9746e629861c890317a9971a4096840e9ccc596fbf7f5d03f8b94cc9887"
+  },
+  {
+    "path": "portable-ssh-server/runtime/OpenSSH-Win64/install-sshd.ps1",
+    "bytes": 22799,
+    "sha256": "3b038630a44cc79b66fcf3097e56b25537411378ed7016a28492dda887dd2087"
+  },
+  {
+    "path": "portable-ssh-server/runtime/OpenSSH-Win64/libcrypto.dll",
+    "bytes": 1769032,
+    "sha256": "4652e861c0335ee80a51306ceab75aa35c8865b235f97ce7dd5a0fd9dab44b5d"
+  },
+  {
+    "path": "portable-ssh-server/runtime/OpenSSH-Win64/moduli",
+    "bytes": 592880,
+    "sha256": "089b524dbf38c6520e96bf4dee11da93f0328e6e89fd10ebc8c9a317b81d50b7"
+  },
+  {
+    "path": "portable-ssh-server/runtime/OpenSSH-Win64/openssh-events.man",
+    "bytes": 3485,
+    "sha256": "c36019e53e3045cba2639bf35ed1e2498e3563b272533e53301165c31ab60199"
+  },
+  {
+    "path": "portable-ssh-server/runtime/OpenSSH-Win64/scp.exe",
+    "bytes": 441928,
+    "sha256": "ca014ddb0a3c058719e7061eb604de7dfe1f7732954792ac8176e6c1fc99b4a3"
+  },
+  {
+    "path": "portable-ssh-server/runtime/OpenSSH-Win64/sftp-server.exe",
+    "bytes": 388680,
+    "sha256": "63462c6904943f5f32ca363065f2eb7e883ee308f40c7c1637a307a253522151"
+  },
+  {
+    "path": "portable-ssh-server/runtime/OpenSSH-Win64/sftp.exe",
+    "bytes": 470584,
+    "sha256": "97271ea46fa2eeb5e9e22cd5e919931727a2a11f79993c1ef151b4f618d9fd22"
+  },
+  {
+    "path": "portable-ssh-server/runtime/OpenSSH-Win64/ssh-add.exe",
+    "bytes": 617032,
+    "sha256": "b6fec08648deaf7a77b50bc34ea8ac17c3cf240d06d0f1bffc60bf56d6f914b1"
+  },
+  {
+    "path": "portable-ssh-server/runtime/OpenSSH-Win64/ssh-agent.exe",
+    "bytes": 564256,
+    "sha256": "138df27c7a8c35fbadde6fee35592336b04e058f4690b03f459ad79edd68ab63"
+  },
+  {
+    "path": "portable-ssh-server/runtime/OpenSSH-Win64/ssh-keygen.exe",
+    "bytes": 879648,
+    "sha256": "b51fdd26be0f7c83398d18e5354a0acb0406a9de25516791758fe63bbe3ae870"
+  },
+  {
+    "path": "portable-ssh-server/runtime/OpenSSH-Win64/ssh-keyscan.exe",
+    "bytes": 751160,
+    "sha256": "32eb6a2b80443207a2481085582c0ed01bbddcfef4b1f3f2cc680aa16d0f3135"
+  },
+  {
+    "path": "portable-ssh-server/runtime/OpenSSH-Win64/ssh-pkcs11-helper.exe",
+    "bytes": 526880,
+    "sha256": "0f1ee63b38af0a96670ffc3f1c5421c4fba678d96ab0485854b550467b987ff5"
+  },
+  {
+    "path": "portable-ssh-server/runtime/OpenSSH-Win64/ssh-shellhost.exe",
+    "bytes": 193080,
+    "sha256": "f090cb45e3b9dd830201993fc274e75a9be2058c1d4e900e85eff334dfd5a84c"
+  },
+  {
+    "path": "portable-ssh-server/runtime/OpenSSH-Win64/ssh-sk-helper.exe",
+    "bytes": 665672,
+    "sha256": "4550082d459bccc5baf13cfe43c36c1e484bb012c4e0efb3990ae33a79e71c96"
+  },
+  {
+    "path": "portable-ssh-server/runtime/OpenSSH-Win64/ssh.exe",
+    "bytes": 1352760,
+    "sha256": "6890c128c86cc2c38aad9fcb32a82b851ff3d38c714a1f656b8e445d7cd5e1c6"
+  },
+  {
+    "path": "portable-ssh-server/runtime/OpenSSH-Win64/sshd-auth.exe",
+    "bytes": 1015840,
+    "sha256": "71b11418681e1ae8a3eb84494658f4ca66a7dac7ccc7674f3c74a36a3a5b7d14"
+  },
+  {
+    "path": "portable-ssh-server/runtime/OpenSSH-Win64/sshd-session.exe",
+    "bytes": 1320504,
+    "sha256": "5b28ad2046596454bd1e0b1ab19e8d66945def1d18ec9bec6f0ef538600a03cf"
+  },
+  {
+    "path": "portable-ssh-server/runtime/OpenSSH-Win64/sshd.exe",
+    "bytes": 784416,
+    "sha256": "d66150486d472b8748cae2d6f5078a210dae91621447974bde028f077a4ef90c"
+  },
+  {
+    "path": "portable-ssh-server/runtime/OpenSSH-Win64/sshd_config_default",
+    "bytes": 2230,
+    "sha256": "796f518d1f4bb03d775da710c259b518eb770d123133dbd6429ca7e14d3c224b"
+  },
+  {
+    "path": "portable-ssh-server/runtime/OpenSSH-Win64/uninstall-sshd.ps1",
+    "bytes": 15872,
+    "sha256": "78256afcbe27a4d5af31f0456bd7367607eed1671373b3c8d7ea510719303f5a"
+  },
+  {
+    "path": "portable-ssh-server/runtime/cloudflared.exe",
+    "bytes": 55365048,
+    "sha256": "86aee4017b26625cee8484c113558f48effa4cd47f7aa05fcf425604e5d2b23c"
+  },
+  {
+    "path": "portable-ssh-server/start-cloudflare-ssh.ps1",
+    "bytes": 4131,
+    "sha256": "8264ccdbb6629c8b0da595d537595650980019539acc2c95f38d98735fb4dbec"
+  },
+  {
+    "path": "portable-ssh-server/使用说明.txt",
+    "bytes": 444,
+    "sha256": "4de78d9f44f15895f095fe121d5feb17bc008ad09af5c82883e3419ab6aa7740"
+  },
+  {
+    "path": "portable-ssh-server/停止便携SSH.cmd",
+    "bytes": 373,
+    "sha256": "d953e39dbea14624f07837f2cd037d4dfc6757a797a3da47540dee3a8bfd8f4b"
+  },
+  {
+    "path": "portable-ssh-server/启动Cloudflare远程SSH.cmd",
+    "bytes": 359,
+    "sha256": "7a9ea3229424a16a23b7c2fb5364a90ba7eb6f4377306387bedf541492318daa"
+  },
+  {
+    "path": "portable-ssh-server/启动便携SSH.cmd",
+    "bytes": 342,
+    "sha256": "658b8889224cdc8af385bd8220d1fd33d78260c579979a86ada9d6489ed97165"
+  },
+  {
+    "path": "portable-ssh-server/远端双击诊断SSH.cmd",
+    "bytes": 284,
+    "sha256": "beac90d4be8fbd6b0286aebea4d7b1870cfa7c517b91e64e02564113b1a2f62a"
+  }
+]
