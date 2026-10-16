@@ -9,3 +9,5 @@ data/
 
 # Diagnostic metadata stays in private runtime state.
 *-events.jsonl*
+
+.node-runtime-cache/

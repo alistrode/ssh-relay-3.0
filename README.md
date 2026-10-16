@@ -2,6 +2,8 @@
 
 私有工作分支 `recovery/current-public-relay-mcp`，主分支与纯源码分支未改。保留当前 MQTT 公网连接，复现稳定版 MCP SSH Manager 的全部 37 个工具，补齐提示词、连接 Skill 和操作说明；不引入局域网功能。
 
+免安装运行包（内置 Node.js）和桌面图标：见 [下载与双击启动](deliverables/README.md)，Windows、Linux 分开下载。以下 npm 步骤用于源码开发。
+
 ## 运行
 
 需要 Node.js 22+。完整仓库根目录：

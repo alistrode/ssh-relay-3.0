@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "linuxBundledRuntimeExecuted": true,
+  "nodeVersion": "v22.23.3",
+  "noNpmInstall": true,
+  "desktopEntryGioLaunchPassed": true,
+  "desktopPathWithSpaces": true,
+  "guiTerminalTested": false,
+  "publicMqttWssSshIdentityVerified": true,
+  "relayProtocol": 2,
+  "windowsArchiveAndPeAndShortcutChecked": true,
+  "windowsNativeExecutionTested": false,
+  "applicationBase660SecondTest": "48538322d1b4204802b9500f1b9255c2ca31e2f0"
+}
