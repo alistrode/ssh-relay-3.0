@@ -34,3 +34,7 @@ python3 "$SKILL_DIR/scripts/connect.py" --platform win10 --info-file /workspace/
 - 复用的端口不对：不要结束未知进程；停止自己启动的近端实例后用新的私密状态目录重新导入，辅助程序会分配空闲端口。
 - 这是免费公共中继，没有可用性保证。SSH 内容保持端到端加密，MQTT 包有独立 HMAC。支持命令和基本 SFTP，不提供 PTY。
 - 连接失败就报告准确阶段并继续有意义的诊断；不得把云端自测、Wine 兼容测试说成用户实际电脑已经连通。
+
+## 权限检查
+
+连接后的 permission_context 是远端实际进程报告的账户及权限信息，permission_comparison 为 not_compared_to_local_codex 时不能声称已达到本机 Codex 权限。出现 Access Denied 时，对照 docs/PERMISSIONS.md 采集本机和远程报告及同一失败操作。Windows REMOTE_RESTRICTED_TOKEN 表示启动进程受限，应由用户在获授权的正常桌面终端启动；不得通过关闭 UAC、修改全局 ACL 或猜测管理员凭据解决。

@@ -7,6 +7,9 @@ var { spawn } = require("node:child_process");
 var { Server, utils } = require("ssh2");
 var { createRelay } = require("./relay.cjs");
 var { serveSftp } = require("./sftp.cjs");
+var { inspectPermissions, requireUsableContext } = require("./permissions.cjs");
+var executionContext = inspectPermissions();
+requireUsableContext(executionContext);
 var root = path.resolve(process.argv[2] || path.join(__dirname, "config"));
 var config = JSON.parse(fs.readFileSync(path.join(root, "remote.json"), "utf8"));
 var allowed = utils.parseKey(fs.readFileSync(path.join(root, "client_key.pub")));
@@ -79,7 +82,7 @@ server.listen(config.sshPort, "127.0.0.1", () => {
   config.sshPort = server.address().port;
   console.log("SSH service ready on loopback. Host fingerprint: " + fingerprint);
   relay = createRelay(config, "far");
-  const status = { fingerprint, platform: process.platform, user: config.user, hostname: os.hostname() };
+  const status = { fingerprint, platform: process.platform, user: config.user, hostname: os.hostname(), permissions: executionContext };
   relay.on("ready", () => {
     console.log("Public encrypted relay subscribed; waiting for near-end verification.");
     relay.status(status).catch(() => {

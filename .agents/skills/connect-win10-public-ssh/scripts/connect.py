@@ -123,7 +123,9 @@ def main():
     is_self = lines[-1].casefold() == socket.gethostname().casefold()
     report = {'connected': True, 'target': args.platform, 'remote_user': lines[0],
               'remote_hostname': lines[-1], 'host_fingerprint': fp, 'cloud_self_test': is_self,
-              'ssh_argv': argv, 'state_directory': str(folder)}
+              'ssh_argv': argv, 'state_directory': str(folder),
+              'permission_context': peer.get('permissions'),
+              'permission_comparison': 'not_compared_to_local_codex'}
     if is_self and not args.allow_cloud_self_test:
         report['connected'] = False
         report['error'] = 'Connected to cloud self-test, not the user computer; stop before project operations.'

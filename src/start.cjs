@@ -3,6 +3,8 @@ var path = require("node:path");
 var crypto = require("node:crypto");
 var zlib = require("node:zlib");
 var { utils } = require("ssh2");
+var { inspectPermissions, requireUsableContext } = require("./permissions.cjs");
+requireUsableContext(inspectPermissions());
 var data = path.resolve(__dirname, "..", "data");
 fs.mkdirSync(data, { recursive: true, mode: 448 });
 var text = (b) => Buffer.from(b);

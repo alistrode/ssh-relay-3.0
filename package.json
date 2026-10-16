@@ -5,7 +5,8 @@
   "scripts": {
     "build": "esbuild src/near.cjs src/start.cjs --bundle --platform=node --target=node22 --outdir=dist --out-extension:.js=.cjs --legal-comments=external --external:cpu-features --external:./crypto/build/Release/sshcrypto.node",
     "start": "node src/start.cjs",
-    "near": "node src/near.cjs"
+    "near": "node src/near.cjs",
+    "permissions": "node src/permissions.cjs"
   },
   "dependencies": {
     "mqtt": "5.16.1",

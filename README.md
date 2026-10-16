@@ -33,3 +33,7 @@ npm start
 ## 已有验证
 
 继承的应用源码通过云端 Linux 公网 660 秒测试：33 次 SSH 命令、11 次 64 KiB SFTP 往返、持续输出及空闲长连接正常结束。测试走公共 broker，没有直接绕过中继。没有 Windows 实机和旧网络路径的对照测试，不宣称哪条公网路径更稳定。
+
+## 本机与远程权限
+
+Windows 新增启动令牌检查与 START-REMOTE.cmd 正常桌面启动入口。使用 npm run permissions 采集上下文；实际对照与验收见 [权限说明](docs/PERMISSIONS.md)。这不会自动提权，尚待目标 Windows 实机验证。
