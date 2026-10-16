@@ -2,3 +2,7 @@ node_modules/
 dist/
 data/
 *.log
+
+.mcp-state/
+.relay-mcp/
+*.log

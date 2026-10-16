@@ -89,6 +89,8 @@ def main():
         except (OSError, KeyError):
             pass
     if port is None:
+        # A previous peer report must not let verification race a newly starting listener.
+        (folder / 'peer.json').unlink(missing_ok=True)
         with socket.socket() as s:
             s.bind(('127.0.0.1', 0)); port = s.getsockname()[1]
         config = {k: info[k] for k in ['broker', 'session', 'secret', 'user', 'fingerprint']}

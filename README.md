@@ -1,39 +1,35 @@
-# 当前公网近远端：MCP 功能复现工作分支
+# 当前公网近远端与 MCP
 
-分支：`recovery/current-public-relay-mcp`。以 `22f5614` 的五个近远端应用模块为基础，保留必要的连接 Skill、辅助程序与说明。主分支和纯源码分支保持不变。
+私有工作分支 `recovery/current-public-relay-mcp`，主分支与纯源码分支未改。保留当前 MQTT 公网连接，复现稳定版 MCP SSH Manager 的全部 37 个工具，补齐提示词、连接 Skill 和操作说明；不引入局域网功能。
 
-## 当前可用
+## 运行
 
-- 远端命令、非 PTY shell、基础 SFTP、公网中继及固定 SSH 主机指纹。
-- Linux / Windows 连接 Skill，接收完整 SSH_RELAY_CONNECT 连接块、检查指纹并验证实际远端身份。
-- 本分支尚未移植 37 个 MCP 工具。后续目标见 [功能复现清单](docs/MCP-REPRODUCTION.md)。
-
-## 运行远端
-
-需要 Node.js 22+ 与 npm。在完整仓库根目录执行：
+需要 Node.js 22+。完整仓库根目录：
 
 ```sh
 npm ci --ignore-scripts
 npm start
 ```
 
-首次运行在 `data/` 生成私密状态，并打印连接块。窗口必须保持运行。不要上传或公开 data/、连接块或私钥。
+Windows 也可使用 `START-REMOTE.cmd`。远端保持运行，将打印的完整私密连接块交给可信 AI，按 [Windows Skill](.agents/skills/connect-win10-public-ssh/SKILL.md) 或 [Linux Skill](.agents/skills/connect-linux-public-ssh/SKILL.md) 导入。连接块、data/ 和私钥不可上传。
 
-## AI 连接近端
+导入得到已核验的私密 connection.json 后，在近端启动 MCP：
 
-近端需要完整仓库、Node.js 22+、Python 3.10+ 和 OpenSSH。在近端仓库根目录执行 `npm ci --ignore-scripts`，然后根据目标读取以下 Skill：
+```sh
+node /absolute/repo/src/mcp.cjs --connection /private/connection.json \
+  --name remote --state-dir /private/mcp-state
+```
 
-- [Linux](.agents/skills/connect-linux-public-ssh/SKILL.md)
-- [Windows 10](.agents/skills/connect-win10-public-ssh/SKILL.md)
+默认提供全部 37 个工具、5 个 prompts 和手册资源，使用 stdio，不自动改客户端配置。多目标、工具选择和客户端配置示例见 [完整操作手册](docs/MCP-MANUAL.md) 与 examples/。
 
-导入完整连接块后，必须校验指纹与实际电脑身份，再执行任务。Skill 直接使用 src/near.cjs，不需要提交打包 bundle。操作命令示例与失败处理在 Skill 中；[连接排查](docs/troubleshooting.md) 提供补充说明。
+## 功能
 
-`npm run build` 可在 dist/ 生成派生文件；不将其当作独立原始工程或提交到本分支。
+命令执行、双向文件传输和同步、持久会话、日志、监控、服务和进程操作、备份还原与计划、三种数据库、部署、提权执行、别名、Profiles、Hooks、分组批量、连接管理、固定指纹、历史及回环端口转发。各平台依赖与行为差异必须按 [功能清单](docs/MCP-REPRODUCTION.md) 和手册判断，不能从工具名称推断可用权限。
 
-## 已有验证
+远程命令继承远端进程权限，Windows 管理员启动可传递提升令牌，不能突破所有系统文件保护。详见 [权限说明](docs/PERMISSIONS.md)。当前远端新增 SFTP 属性修复、进程树终止和回环转发；旧远端仍可提供原有命令/SFTP，但新增能力需停止旧实例后启动新版。
 
-继承的应用源码通过云端 Linux 公网 660 秒测试：33 次 SSH 命令、11 次 64 KiB SFTP 往返、持续输出及空闲长连接正常结束。测试走公共 broker，没有直接绕过中继。没有 Windows 实机和旧网络路径的对照测试，不宣称哪条公网路径更稳定。
+## 来源与验证
 
-## 本机与远程权限
+源代码来源见 [来源清单](docs/MCP-SOURCE-PROVENANCE.json)，稳定版辅助模块按 MIT 许可保留。当前实现和旧连接层分别处理，不将重建或新适配代码冒称原始工程。
 
-Windows 新增启动令牌检查与 START-REMOTE.cmd 正常桌面启动入口。使用 npm run permissions 采集上下文；实际对照与验收见 [权限说明](docs/PERMISSIONS.md)。这不会自动提权，尚待目标 Windows 实机验证。
+验证结果与明确限制见 [验证说明](docs/MCP-VALIDATION.md)。`npm run build` 只生成被忽略的派生 dist/，不提交运行包、依赖目录、测试状态或凭据。

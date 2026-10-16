@@ -1,62 +1,57 @@
 # MCP 功能复现范围
 
-本分支先建立复现工作区，尚未宣称已实现 MCP 服务或工具。保留当前公网近远端连接；不以旧连接方式替换它，不引入局域网功能。近远端 src/ 与纯源码分支一致。
+工作分支 recovery/current-public-relay-mcp。全部 37 个工具已接入真实 stdio MCP，保留当前 MQTT 公网近远端；提供 5 个工作流 prompts、服务 instructions、手册资源、连接 Skill 和客户端配置示例。
 
-功能依据：私有仓库 source/stable-near-far@b724289 的 src/index.js 与 tool-registry.js。这里是功能参照，不向公开 REA 仓库上传项目材料。
+功能依据为私有仓库 source/stable-near-far@b724289 的 src/index.js 与 tool-registry.js。工具名称和输入参数定义来自原始源码；使用中的辅助模块保留来源及 MIT 许可。当前传输、跨平台执行和远端任务为本分支适配实现，不冒称找回原始工程。
 
-## 对 AI 的交付要求
+不复制旧 Cloudflare/OpenSSH 启动与导入链、局域网功能、旧交互式 CLI 菜单、没有被当前实现引用的旧模块，也不提交第三方运行包、node_modules、dist、凭据和日志。它们仍保存在历史源码材料中，未删除稳定版材料。
 
-每个移植工具都要提供用途、输入参数、远端副作用说明、适用平台、超时、真实退出码和错误。不得把未执行的命令、PID、端口监听或 success 字段当成执行成功。复用连接身份验证，避免 AI 混用本地与远端目录。
+## 功能与边界
 
-## 分步复现
+全部工具都有真实处理器，不用“已注册”代替执行验收。数据库需要对应客户端和数据库权限；定时备份需要现有调度设施；Unix owner/mode、Windows ACL、POSIX signal 不能混为一谈。原版有缺陷或平台不兼容的实现按实际功能适配，具体差异见 [操作手册](MCP-MANUAL.md)。
 
-1. 命令、文件传输、服务器发现与连接状态；连接 Skill 中增加真实工具发现和失败处理。
-2. 持久会话、目录和环境上下文、操作历史、日志读取。
-3. 部署、别名、分组、批量操作、Profiles 与 Hooks。
-4. 监控、备份、数据库及其他高级工具。端口转发与 PTY 需要单独完成服务端支持，不能只注册空工具。
+端口转发支持 local、remote 和 SOCKS5 CONNECT，但两端绑定/目的地仅回环，排除局域网。持久 shell 保持目录和环境，不提供 PTY。文件同步用 SFTP 实现 dryRun、exclude、delete 和 checksum，不依赖 rsync、不宣称已启用压缩。日志跟随以五秒窗口返回实际内容，不留下无法管理的后台进程。
 
-对于与现有连接或权限行为重复、冲突的功能，先向用户报告具体差异再决定。旧版源码中部分工具偏 Linux，不能直接声称适配 Windows。
+## 37 个已实现工具
 
-## 37 个待复现工具
-
-- [ ] `ssh_list_servers`
-- [ ] `ssh_execute`
-- [ ] `ssh_upload`
-- [ ] `ssh_download`
-- [ ] `ssh_sync`
-- [ ] `ssh_session_start`
-- [ ] `ssh_session_send`
-- [ ] `ssh_session_list`
-- [ ] `ssh_session_close`
-- [ ] `ssh_health_check`
-- [ ] `ssh_service_status`
-- [ ] `ssh_process_manager`
-- [ ] `ssh_monitor`
-- [ ] `ssh_tail`
-- [ ] `ssh_alert_setup`
-- [ ] `ssh_backup_create`
-- [ ] `ssh_backup_list`
-- [ ] `ssh_backup_restore`
-- [ ] `ssh_backup_schedule`
-- [ ] `ssh_db_dump`
-- [ ] `ssh_db_import`
-- [ ] `ssh_db_list`
-- [ ] `ssh_db_query`
-- [ ] `ssh_deploy`
-- [ ] `ssh_execute_sudo`
-- [ ] `ssh_alias`
-- [ ] `ssh_command_alias`
-- [ ] `ssh_hooks`
-- [ ] `ssh_profile`
-- [ ] `ssh_connection_status`
-- [ ] `ssh_tunnel_create`
-- [ ] `ssh_tunnel_list`
-- [ ] `ssh_tunnel_close`
-- [ ] `ssh_key_manage`
-- [ ] `ssh_execute_group`
-- [ ] `ssh_group_manage`
-- [ ] `ssh_history`
+- [x] `ssh_list_servers`
+- [x] `ssh_execute`
+- [x] `ssh_upload`
+- [x] `ssh_download`
+- [x] `ssh_sync`
+- [x] `ssh_session_start`
+- [x] `ssh_session_send`
+- [x] `ssh_session_list`
+- [x] `ssh_session_close`
+- [x] `ssh_health_check`
+- [x] `ssh_service_status`
+- [x] `ssh_process_manager`
+- [x] `ssh_monitor`
+- [x] `ssh_tail`
+- [x] `ssh_alert_setup`
+- [x] `ssh_backup_create`
+- [x] `ssh_backup_list`
+- [x] `ssh_backup_restore`
+- [x] `ssh_backup_schedule`
+- [x] `ssh_db_dump`
+- [x] `ssh_db_import`
+- [x] `ssh_db_list`
+- [x] `ssh_db_query`
+- [x] `ssh_deploy`
+- [x] `ssh_execute_sudo`
+- [x] `ssh_alias`
+- [x] `ssh_command_alias`
+- [x] `ssh_hooks`
+- [x] `ssh_profile`
+- [x] `ssh_connection_status`
+- [x] `ssh_tunnel_create`
+- [x] `ssh_tunnel_list`
+- [x] `ssh_tunnel_close`
+- [x] `ssh_key_manage`
+- [x] `ssh_execute_group`
+- [x] `ssh_group_manage`
+- [x] `ssh_history`
 
 ## 验收
 
-工具必须真实出现在 MCP 工具目录，参数可发现；验证真实 stdout、stderr、退出码和副作用。已完成项附验证依据；未验证平台明确标注。保留当前连接的十分钟公网稳定性要求；工具断线恢复不能伪装成已运行任务可以续接。
+通过 SDK 客户端验证 tools/list、prompts/list/get、resources/list/read，再检查每个工具的实际输出、退出码和目标副作用。缺少数据库或调度设施时的真实失败不能算端到端业务成功。验收覆盖及限制见 [验证说明](MCP-VALIDATION.md)。保留公网连续十分钟稳定性要求；断线后已有操作不能透明续接。

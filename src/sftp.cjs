@@ -166,7 +166,7 @@ function serveSftp(stream) {
   });
   async function setAttrs(id, target, attrs, fd) {
     try {
-      for (const k of Object.keys(attrs)) if (!["size", "uid", "gid", "mode", "atime", "mtime", "flags"].includes(k)) throw new Error("Unsupported attributes");
+      for (const k of Object.keys(attrs)) if (attrs[k] !== void 0 && !["size", "uid", "gid", "mode", "atime", "mtime", "flags"].includes(k)) throw new Error("Unsupported attributes");
       const call = (method, ...args) => new Promise((resolve, reject) => fs[method](target, ...args, (e) => e ? reject(e) : resolve()));
       if (attrs.size !== void 0) await call(fd ? "ftruncate" : "truncate", attrs.size);
       if (attrs.mode !== void 0) await call(fd ? "fchmod" : "chmod", attrs.mode);

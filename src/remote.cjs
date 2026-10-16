@@ -7,6 +7,7 @@ var { spawn } = require("node:child_process");
 var { Server, utils } = require("ssh2");
 var { createRelay } = require("./relay.cjs");
 var { serveSftp } = require("./sftp.cjs");
+var { attachForwarding } = require("./forwarding.cjs");
 var { inspectPermissions, requireUsableContext } = require("./permissions.cjs");
 var executionContext = inspectPermissions();
 requireUsableContext(executionContext);
@@ -33,6 +34,7 @@ var server = new Server({ hostKeys: [hostKey] }, (client) => {
   });
   client.on("ready", () => {
     console.log("SSH public-key authentication succeeded.");
+    attachForwarding(client);
     client.on("session", (accept) => {
       const session = accept();
       function start(accept2, command) {
@@ -40,8 +42,23 @@ var server = new Server({ hostKeys: [hostKey] }, (client) => {
         const windows = process.platform === "win32";
         const shell = windows ? process.env.ComSpec || "cmd.exe" : "/bin/sh";
         const args = command === void 0 ? windows ? ["/Q"] : ["-s"] : windows ? ["/d", "/s", "/c", command] : ["-c", command];
-        const child = spawn(shell, args, { cwd: os.homedir(), windowsHide: true, stdio: "pipe" });
+        const child = spawn(shell, args, { cwd: os.homedir(), windowsHide: true, detached: !windows, stdio: "pipe" });
         children.add(child);
+        child.terminate = (signal = "SIGTERM") => {
+          if (child.exitCode !== null || child.signalCode !== null) return;
+          if (windows) {
+            const killer = spawn("taskkill.exe", ["/PID", String(child.pid), "/T", "/F"], { windowsHide: true, stdio: "ignore" });
+            killer.on("error", () => child.kill());
+          } else {
+            try { process.kill(-child.pid, signal); } catch { child.kill(signal); }
+          }
+        };
+        session.on("signal", (acceptSignal, rejectSignal, info) => {
+          const signal = info.name.startsWith("SIG") ? info.name : "SIG" + info.name;
+          if (!["SIGTERM", "SIGKILL", "SIGINT", "SIGHUP", "SIGQUIT"].includes(signal)) return rejectSignal?.();
+          child.terminate(signal);
+          acceptSignal?.();
+        });
         stream.pipe(child.stdin);
         child.stdin.on("error", () => {
         });
@@ -63,7 +80,7 @@ var server = new Server({ hostKeys: [hostKey] }, (client) => {
           stream.end();
         });
         stream.on("close", () => {
-          if (!finished) child.kill();
+          if (!finished) child.terminate();
         });
       }
       session.on("exec", (accept2, reject, info2) => start(accept2, info2.command));
@@ -82,7 +99,7 @@ server.listen(config.sshPort, "127.0.0.1", () => {
   config.sshPort = server.address().port;
   console.log("SSH service ready on loopback. Host fingerprint: " + fingerprint);
   relay = createRelay(config, "far");
-  const status = { fingerprint, platform: process.platform, user: config.user, hostname: os.hostname(), permissions: executionContext };
+  const status = { capabilities: { exec: true, sftp: true, shell: true, pty: false, forwarding: "loopback-only", version: 2 }, fingerprint, platform: process.platform, user: config.user, hostname: os.hostname(), permissions: executionContext };
   relay.on("ready", () => {
     console.log("Public encrypted relay subscribed; waiting for near-end verification.");
     relay.status(status).catch(() => {
@@ -98,7 +115,7 @@ server.listen(config.sshPort, "127.0.0.1", () => {
 function close() {
   clearInterval(heartbeat);
   if (relay) relay.close();
-  for (const child of children) child.kill();
+  for (const child of children) child.terminate();
   for (const client of clients) client.end();
   server.close(() => process.exit(0));
   setTimeout(() => process.exit(0), 2e3).unref();
