@@ -20,7 +20,10 @@ def main():
   target=OUT/f'paired-{platform}-x64-offline.zip'
   with zipfile.ZipFile(target,'w',zipfile.ZIP_DEFLATED,compresslevel=6) as out:
    with zipfile.ZipFile(OUT/f'paired-{platform}-x64.zip') as app:
-    for entry in app.infolist():out.writestr(entry,app.read(entry.filename))
+    for entry in app.infolist():
+     data=app.read(entry.filename)
+     if entry.filename=='README.txt': data=('完整离线版：已内置下文提及的全部 Node/Electron 组件；首次启动无需下载。完整解压并保留整个目录。实际公网连接需要网络。\n\n').encode()+data
+     out.writestr(entry,data)
    with zipfile.ZipFile(archive) as runtime:
     for entry in runtime.infolist():
      data=runtime.read(entry.filename);entry.filename='runtime-electron/'+entry.filename;out.writestr(entry,data)
@@ -41,7 +44,7 @@ def main():
   assert h.hexdigest()==record['sha256']
   if platform=='windows':
    expression="(Get-FileHash -LiteralPath '"+target.name+"' -Algorithm SHA256).Hash -eq '"+record['sha256']+"'"
-   command='@echo off\r\ncd /d "%~dp0"\r\ncopy /b '+ '+'.join('"'+p['file']+'"' for p in record['parts'])+' "'+target.name+'"\r\nif errorlevel 1 exit /b 1\r\npowershell -NoProfile -Command "if ('+expression+") { Write-Host 'SHA256 OK. Extract the complete ZIP, then open SSH-Relay-Near or Far.' } else { Write-Error 'SHA256 mismatch'; exit 1 }"+'\r\nif errorlevel 1 exit /b 1\r\npause\r\n'
+   command='@echo off\r\ncd /d "%~dp0"\r\ncopy /b '+ '+'.join('"'+p['file']+'"' for p in record['parts'])+' "'+target.name+'"\r\nif errorlevel 1 exit /b 1\r\npowershell -NoProfile -Command "if ('+expression+") { Write-Host 'SHA256 OK. Extract the complete ZIP, then open SSH-Relay-Near or Far.' } else { Write-Error 'SHA256 mismatch'; exit 1 }"+'"\r\nif errorlevel 1 exit /b 1\r\npause\r\n'
    (parts/'ASSEMBLE-WINDOWS.cmd').write_bytes(command.encode())
   else:
    command='#!/bin/sh\nset -eu\ncd "$(dirname "$0")"\ncat '+' '.join("'"+p['file']+"'" for p in record['parts'])+" > '"+target.name+"'\nprintf '%s\\n' '"+record['sha256']+'  '+target.name+"' | sha256sum -c -\nprintf '%s\\n' 'Extract the complete ZIP, then open SSH-Relay-Near or Far.'\n"

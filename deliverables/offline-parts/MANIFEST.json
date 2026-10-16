@@ -1,0 +1,49 @@
+{
+  "version": "44.8.0",
+  "offline": true,
+  "archives": [
+    {
+      "platform": "windows",
+      "file": "paired-windows-x64-offline.zip",
+      "bytes": 194567551,
+      "sha256": "91710e7aa29765e4e74492e8b335910d9e1eb9322b7cdfb8e1191648708937b4",
+      "electronArchiveSha256": "1c9319bab793492715f7668e0be0e6a30bf2a8577275e40035bd33601bf6f573",
+      "parts": [
+        {
+          "file": "paired-windows-x64-offline.zip.part01",
+          "bytes": 94371840,
+          "sha256": "73cd94d9fa8b882899c494f8af7196bcdb9ddc68192d8c6e16021cf256e0d478"
+        },
+        {
+          "file": "paired-windows-x64-offline.zip.part02",
+          "bytes": 94371840,
+          "sha256": "c590e4d6bb1753fd1a3ff365e5336d336eee841b377d110affb9baaadd199b62"
+        },
+        {
+          "file": "paired-windows-x64-offline.zip.part03",
+          "bytes": 5823871,
+          "sha256": "32adbdd443412b027e3478ec15c01f0d772eedd5dea718be2c45a9942ff6ed90"
+        }
+      ]
+    },
+    {
+      "platform": "linux",
+      "file": "paired-linux-x64-offline.zip",
+      "bytes": 170770240,
+      "sha256": "c5defad2ce0680e8815b0f20e45357b42db54dd88e195490d80ade03fb9a981c",
+      "electronArchiveSha256": "926679355f8bf8d521fc6e1a2dc1c71f11cf176a3a1444f9afbd9e1cdfeddb11",
+      "parts": [
+        {
+          "file": "paired-linux-x64-offline.zip.part01",
+          "bytes": 94371840,
+          "sha256": "b58f0396a869ddaab8227b6773486ed25ccfffc9526577d1f537ab8361ecba97"
+        },
+        {
+          "file": "paired-linux-x64-offline.zip.part02",
+          "bytes": 76398400,
+          "sha256": "596b2f3b34785c642d396a121ab8af7214e4d0cbb2b9548f143ad32bfae450c5"
+        }
+      ]
+    }
+  ]
+}
