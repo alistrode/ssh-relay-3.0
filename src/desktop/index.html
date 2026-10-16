@@ -1,0 +1,10 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>SSH Relay</title><link rel="stylesheet" href="style.css"></head>
+<body><main><header><div><small>PUBLIC SSH RELAY</small><h1 id="title">设备连接</h1></div><span id="badge">正在启动</span></header>
+<section><h2>连接状态</h2><p id="status">正在启动连接服务…</p><p id="identity" class="muted"></p><p id="retry" class="muted"></p><p id="error" role="alert"></p><div class="row"><button id="connect">连接指定电脑</button><button id="pause" class="secondary">暂停自动连接</button></div></section>
+<section><h2>设备配对</h2><p id="pair-help">输入远端显示的一次性配对码。成功后将记住此电脑。</p><div id="near-pair" class="row"><input id="code" autocomplete="off" spellcheck="false" placeholder="XXXX-XXXX-XXXX-XXXX-XXXX-XXXX-XXXX-XXXX" aria-label="配对码"><button id="pair">配对</button></div><div id="far-pair" hidden><button id="generate">生成一次性配对码</button><p id="pair-code"></p><p id="expiry" class="muted"></p></div></section>
+<section id="devices-section"><h2>已配对电脑</h2><div id="devices">尚未配对</div><p class="muted">选择的电脑将成为默认目标。身份变化时会停止连接并提示。</p></section>
+<section><h2>后台运行</h2><label><input id="startup" type="checkbox"> 用户登录后自动启动</label><p class="muted">开启后静默进入托盘；关闭面板会保留后台连接。通过托盘“退出”可停止。</p><button id="logs" class="secondary">打开本地诊断目录</button></section>
+<section id="revoke-section" hidden><h2>访问授权</h2><p class="muted">当前远端支持最多 16 个已配对近端，各自使用独立中继会话。需要取消已授予的访问权时，可撤销全部配对，然后重新配对可信设备。</p><button id="revoke" class="secondary">撤销全部配对</button></section>
+<footer>配对码仅用于首次授权，请只交给可信设备。公共中继故障时将自动退避重试。</footer></main><script src="renderer.js"></script></body></html>

@@ -40,6 +40,7 @@ function createRelay(config, role) {
     stopping = false,
     peerProtocol = 1,
     peerInstance;
+  let reconnectFailures = 0, stableTimer;
   const stats = {
     opened: 0,
     closed: 0,
@@ -421,9 +422,17 @@ function createRelay(config, role) {
     deliver(state);
   }
   client.on("connect", () =>
-    client.subscribe(prefix + role, { qos: 1 }, (error) => {
-      if (error) return events.emit("diagnostic", error.message);
+    client.subscribe(prefix + role, { qos: 1 }, (error, grants) => {
+      if (error || grants?.some(grant => grant.qos === 128)) {
+        trace('mqtt_subscribe_failed');
+        events.emit('diagnostic', 'MQTT subscription failed');
+        client.stream?.destroy();
+        return;
+      }
       ready = true;
+      clearTimeout(stableTimer);
+      stableTimer = setTimeout(() => { reconnectFailures = 0; }, 60000);
+      stableTimer.unref();
       epoch++;
       trace("mqtt_subscribed", null, { epoch });
       events.emit("ready");
@@ -433,7 +442,20 @@ function createRelay(config, role) {
     trace("mqtt_error", null, { error: error.message });
     events.emit("diagnostic", error.message);
   });
-  client.on("close", () => trace("mqtt_close"));
+  client.on("close", () => {
+    clearTimeout(stableTimer);
+    if (!stopping && client.options) {
+      const delay = Math.min(60000, 2000 * 2 ** Math.min(reconnectFailures++, 5));
+      client.options.reconnectPeriod = Math.round(delay * (0.8 + Math.random() * 0.2));
+      trace("mqtt_retry_scheduled", null, { attempt: reconnectFailures, delayMs: client.options.reconnectPeriod });
+    }
+    if (ready) {
+      ready = false;
+      for (const state of [...connections.values()]) reset(state, "broker_closed", false);
+      events.emit("offline");
+    }
+    trace("mqtt_close");
+  });
   client.on("reconnect", () => trace("mqtt_reconnect"));
   client.on("offline", () => {
     ready = false;
@@ -691,6 +713,7 @@ function createRelay(config, role) {
     stopping = true;
     ready = false;
     clearInterval(retransmitter);
+    clearTimeout(stableTimer);
     clearTimeout(wireTimer);
     wireTimer = null;
     pumpWire();

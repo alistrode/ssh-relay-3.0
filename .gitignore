@@ -11,3 +11,8 @@ data/
 *-events.jsonl*
 
 .node-runtime-cache/
+
+# Application-local first-run desktop components, never source or deliverables.
+runtime-electron/
+.electron-setup/
+.runtime-setup-status.json

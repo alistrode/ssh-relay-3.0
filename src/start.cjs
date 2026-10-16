@@ -5,7 +5,7 @@ var zlib = require("node:zlib");
 var { utils } = require("ssh2");
 var { inspectPermissions, requireUsableContext } = require("./permissions.cjs");
 requireUsableContext(inspectPermissions());
-var data = path.resolve(__dirname, "..", "data");
+var data = process.env.RELAY_STATE_DIR ? path.resolve(process.env.RELAY_STATE_DIR) : path.resolve(__dirname, "..", "data");
 fs.mkdirSync(data, { recursive: true, mode: 448 });
 var text = (b) => Buffer.from(b);
 var u32 = (n) => {
@@ -45,10 +45,12 @@ if (fs.existsSync(bundlePath)) {
   fs.writeFileSync(path.join(data, "remote.json"), JSON.stringify({ ...info, clientPrivateKey: void 0, hostPublicKey: void 0, sshPort: 0 }), { mode: 384, flag: "wx" });
   fs.writeFileSync(bundlePath, JSON.stringify(info), { mode: 384, flag: "wx" });
 }
+if (!process.env.RELAY_NO_PRINT) {
 console.log("The following block is a PRIVATE connection credential. Share only with your trusted AI.");
 console.log("========== SSH_RELAY_CONNECT_BEGIN ==========");
 console.log("TARGET=" + info.target);
 console.log("BUNDLE=" + zlib.gzipSync(Buffer.from(JSON.stringify(info))).toString("base64"));
 console.log("========== SSH_RELAY_CONNECT_END ==========");
+}
 process.argv[2] = data;
 require("./remote.cjs");

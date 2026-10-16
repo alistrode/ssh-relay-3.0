@@ -8,16 +8,23 @@
     "near": "node src/near.cjs",
     "permissions": "node src/permissions.cjs",
     "mcp": "node src/mcp.cjs",
-    "test:relay": "node tests/relay-reliability.cjs"
+    "test:relay": "node tests/relay-reliability.cjs",
+    "paired:near": "node src/paired-agent.cjs --role near",
+    "paired:far": "node src/paired-agent.cjs --role far",
+    "desktop:near": "electron desktop-package --role near",
+    "desktop:far": "electron desktop-package --role far",
+    "test:pairing": "node tests/pairing-security.cjs"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.30.0",
+    "extract-zip": "^2.0.1",
     "https-proxy-agent": "^7.0.6",
     "mqtt": "5.16.1",
     "ssh2": "1.17.0",
     "zod": "^4.4.3"
   },
   "devDependencies": {
+    "electron": "^44.8.0",
     "esbuild": "^0.25.0"
   },
   "engines": {

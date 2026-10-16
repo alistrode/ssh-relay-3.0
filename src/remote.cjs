@@ -172,13 +172,29 @@ server.on("error", (error) => {
 });
 var relay;
 var heartbeat;
+var relays = new Map();
+var status;
+function addRelay(link, primary = false) {
+  if (relays.has(link.session)) return;
+  if (relays.size >= 17) throw new Error('Paired relay capacity reached');
+  const endpoint = createRelay({ ...config, session: link.session, secret: link.secret }, 'far');
+  relays.set(link.session, endpoint);
+  endpoint.on('ready', () => {
+    if (primary) process.send?.({ type: 'ready', fingerprint, protocol: 2 });
+    endpoint.status(status).catch(() => {});
+  });
+  endpoint.on('peer', () => endpoint.status(status).catch(() => {}));
+  endpoint.on('offline', () => { if (primary) process.send?.({ type: 'offline' }); });
+  endpoint.on('diagnostic', message => console.error('Relay:', message));
+  endpoint.on('trace', entry => { recordTrace(entry); console.error('RELAY_TRACE ' + JSON.stringify(entry)); });
+  return endpoint;
+}
 server.listen(config.sshPort, "127.0.0.1", () => {
   config.sshPort = server.address().port;
   console.log(
     "SSH service ready on loopback. Host fingerprint: " + fingerprint,
   );
-  relay = createRelay(config, "far");
-  const status = {
+  status = {
     capabilities: {
       exec: true,
       sftp: true,
@@ -194,26 +210,12 @@ server.listen(config.sshPort, "127.0.0.1", () => {
     hostname: os.hostname(),
     permissions: executionContext,
   };
-  relay.on("ready", () => {
-    console.log(
-      "Public encrypted relay subscribed; waiting for near-end verification.",
-    );
-    relay.status(status).catch(() => {});
-  });
-  relay.on("peer", () => relay.status(status).catch(() => {}));
-  relay.on("offline", () =>
-    console.log("Public relay disconnected; reconnecting."),
-  );
-  relay.on("diagnostic", (message) => console.error("Relay:", message));
-  relay.on("trace", (entry) => {
-    recordTrace(entry);
-    console.error("RELAY_TRACE " + JSON.stringify(entry));
-  });
-  heartbeat = setInterval(() => relay.status(status).catch(() => {}), 15e3);
+  relay = addRelay(config, true);
+  heartbeat = setInterval(() => { for (const endpoint of relays.values()) endpoint.status(status).catch(() => {}); }, 15e3);
 });
 function close() {
   clearInterval(heartbeat);
-  if (relay) relay.close();
+  for (const endpoint of relays.values()) endpoint.close();
   for (const child of children) child.terminate();
   for (const client of clients) client.end();
   server.close(() => process.exit(0));
@@ -221,3 +223,10 @@ function close() {
 }
 process.on("SIGINT", close);
 process.on("SIGTERM", close);
+process.on("message", message => {
+  if (message?.type === "shutdown") close();
+  if (message?.type === 'add-link' && status && /^[a-f0-9]{32}$/.test(message.session) && /^[a-f0-9]{64}$/.test(message.secret)) {
+    try { addRelay(message); } catch { process.send?.({ type: 'link-error' }); }
+  }
+});
+if (process.send) process.on("disconnect", close);

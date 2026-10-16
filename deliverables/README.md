@@ -1,5 +1,15 @@
 # 下载与双击启动
 
+## 配对式增强预览版
+
+- `paired-windows-x64.zip`：Windows 近端和远端，双击 `SSH-Relay-Near.lnk` 或 `SSH-Relay-Far.lnk`。
+- `paired-linux-x64.tar.gz`：Linux 近端和远端，双击同名无扩展名原生 ELF；ZIP 是相同内容的备选格式。
+- 内置官方 Node 22；首次启动自动下载并按官方 SHA-256 校验 Electron 界面组件，不用注册账号、购买服务、另装 Node/npm 或自建服务器。首次需要网络，Windows 约 152 MiB，Linux 约 118 MiB；后续启动复用已准备好的组件。它不是完全离线运行包。
+- 已增加一次性配对、默认主机记忆、连接监管、托盘、自启开关和诊断入口。自启指用户登录后运行，不能冒称登录前系统服务。
+- 独立解压到新目录，保留原实例。操作、限制及真实验收范围见 [增强版手册](../docs/PAIRED-RELAY-MANUAL.md) 和 [逐条需求](../docs/PAIRED-RELAY-REQUIREMENTS.md)。未完成的一小时或桌面实测不能当作已经通过。
+
+下方 `remote-*` 是原连接块入口的兼容包，仍可使用；本轮随应用修改重建。历史 660 秒通过记录属于历史快照，不能自动套用于新构建。
+
 Linux 图标被 Vim 打开：下载 **linux-launcher-fix.tar.gz** 小补丁，解压覆盖到上一版已经内置 Node 的 Linux 远端目录，再双击 **SSH-Remote（无扩展名）**。该原生入口不依赖 .desktop/.sh 的文件关联，也不修改默认编辑器。已有私密 data/ 不在补丁中，不删除。新下载优先使用下方完整 TAR 包。
 
 - **remote-windows-x64.zip**：Windows 10/11 x64。已内置官方 Node.js 22，完整解压后双击 **SSH-Remote.lnk** 或 **START-REMOTE.cmd**，会创建带自定义图标的桌面快捷方式。
