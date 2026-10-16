@@ -127,6 +127,8 @@ def main():
               'remote_hostname': lines[-1], 'host_fingerprint': fp, 'cloud_self_test': is_self,
               'ssh_argv': argv, 'state_directory': str(folder),
               'permission_context': peer.get('permissions'),
+              'relay_protocol': peer.get('relayProtocol', 1),
+              'reliable_delivery': peer.get('relayProtocol') == 2,
               'permission_comparison': 'not_compared_to_local_codex'}
     if is_self and not args.allow_cloud_self_test:
         report['connected'] = False

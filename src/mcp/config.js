@@ -83,6 +83,7 @@ export function servers() {
       hostname: report.remote_hostname,
       permissions: peer.permissions || null,
       capabilities: peer.capabilities || {},
+      relayProtocol: peer.relayProtocol || 1,
       peerReceivedAt: peer.receivedAt,
       group: entry.group || "",
       description: entry.description || "",

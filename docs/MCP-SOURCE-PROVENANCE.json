@@ -81,5 +81,11 @@
     "database-manager.js": "replaced by argument-array based cross-platform database jobs",
     "health-monitor.js": "replaced by current platform health/process/service adapters"
   },
-  "formatting": "Original hashes identify source materials before LF normalization, formatting and runtime-path adaptation."
+  "formatting": "Original hashes identify source materials before LF normalization, formatting and runtime-path adaptation.",
+  "stabilityAdaptation": {
+    "base": "recovery/current-public-relay-mcp@7546fa3",
+    "relay": "src/relay.cjs: new endpoint-acknowledged reliability layer over the existing public relay protocol; not recovered original source",
+    "diagnostics": "src/diagnostics.cjs: new bounded metadata logging",
+    "verification": "tests/ contains verification helpers, separate from src/ application code"
+  }
 }

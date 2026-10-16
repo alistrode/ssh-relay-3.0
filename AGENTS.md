@@ -7,3 +7,5 @@
 连接 Linux/Windows 时读取对应 .agents/skills/connect-*-public-ssh/SKILL.md。技能调用本仓库 src/near.cjs，不能偷偷使用其他目录的旧 bundle。先验证指纹与实际远端身份；云端自测不得冒充用户电脑连接成功。
 
 目标是保留当前公网连接能力，复现稳定版 MCP 的 AI 工具、操作提示和工具链。范围见 docs/MCP-REPRODUCTION.md；未实现的工具不得写成已可用。排除局域网功能；重复或冲突功能须向用户请示。不得修改环境配置或擅自连接用户电脑。
+
+稳定性修复与证据见 docs/MCP-STABILITY-RESULTS.json、docs/MCP-VALIDATION.md。历史单轮通过不能代替新验收；环境中断或不完整记录不算通过。两端均更新并协商 relayProtocol=2 才具备接收端 ACK/重传能力，不能把协议 1 兼容连接说成已修复。near-events.jsonl / far-events.jsonl 仅留私密运行目录，不提交；元数据按 cid/seq 对照，PUBACK 不是接收端交付凭证。

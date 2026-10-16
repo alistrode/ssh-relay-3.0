@@ -6,3 +6,6 @@ data/
 .mcp-state/
 .relay-mcp/
 *.log
+
+# Diagnostic metadata stays in private runtime state.
+*-events.jsonl*

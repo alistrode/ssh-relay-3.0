@@ -7,7 +7,8 @@
     "start": "node src/start.cjs",
     "near": "node src/near.cjs",
     "permissions": "node src/permissions.cjs",
-    "mcp": "node src/mcp.cjs"
+    "mcp": "node src/mcp.cjs",
+    "test:relay": "node tests/relay-reliability.cjs"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.30.0",

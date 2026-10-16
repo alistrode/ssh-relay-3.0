@@ -375,6 +375,7 @@ export const handlers = {
       defaultDir: c.defaultDir,
       permissions: c.permissions,
       capabilities: c.capabilities,
+      relayProtocol: c.relayProtocol,
       peerStatusAgeMs: Date.now() - c.peerReceivedAt,
     })),
   }),
@@ -535,6 +536,7 @@ export const handlers = {
         hostname: c.hostname,
         connected: !!pool.get(c.name)?.connected,
         permissions: c.permissions,
+        relayProtocol: c.relayProtocol,
         peerStatusAgeMs: Date.now() - c.peerReceivedAt,
       })),
     };

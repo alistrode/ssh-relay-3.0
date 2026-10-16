@@ -28,6 +28,8 @@ node /absolute/repo/src/mcp.cjs --connection /private/connection.json \
 
 远程命令继承远端进程权限，Windows 管理员启动可传递提升令牌，不能突破所有系统文件保护。详见 [权限说明](docs/PERMISSIONS.md)。当前远端新增 SFTP 属性修复、进程树终止和回环转发；旧远端仍可提供原有命令/SFTP，但新增能力需停止旧实例后启动新版。
 
+公网稳定性修复采用接收端确认、丢包重传与发送节流；近远端都需更新并确认协议 2 才生效。日志位置、升级及断线处理见 [连接排查](docs/troubleshooting.md)。
+
 ## 来源与验证
 
 源代码来源见 [来源清单](docs/MCP-SOURCE-PROVENANCE.json)，稳定版辅助模块按 MIT 许可保留。当前实现和旧连接层分别处理，不将重建或新适配代码冒称原始工程。

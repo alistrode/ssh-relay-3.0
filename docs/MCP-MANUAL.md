@@ -80,3 +80,5 @@ MCP 提供服务 instructions、5 个 prompts（remote-connect、remote-operate�
 Windows 管理员仍可能被系统文件保护或专门 ACL 拒绝；这不是自动降权的证明。用相同路径和操作比较本机 Codex 与远端实际令牌，见 PERMISSIONS.md。
 
 当前实现基于稳定版功能契约适配，不承诺逐字复原旧源码行为。源代码来源和保留模块见 MCP-SOURCE-PROVENANCE.json，实际验证覆盖见 MCP-VALIDATION.md。
+
+连接稳定性与更新：按 [连接排查](troubleshooting.md) 核验 relayProtocol=2。近远端必须同时更新；连接恢复不等于原任务恢复，断线后先查询结果，禁止自动重放有副作用的工具调用。诊断日志只含元数据，保存在仓库外运行状态，不上传。

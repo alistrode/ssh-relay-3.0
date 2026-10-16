@@ -4,7 +4,7 @@ export const instructions = `You operate the user's remote computer through a pu
 const workflows = {
   "remote-connect": {
     description: "Verify the target and discover tools before remote work",
-    text: "Call ssh_list_servers, select the requested server and check hostname, actual account, OS, permission context and capabilities. Call ssh_execute with a harmless identity/workdir probe (PowerShell on Windows, sh on Linux). Compare the actual output to the expected target. A stale relay status is not proof of connectivity. Then report verified target and available capabilities; never output credentials.",
+    text: "Call ssh_list_servers, select the requested server and check hostname, actual account, OS, permission context and capabilities. Call ssh_execute with a harmless identity/workdir probe (PowerShell on Windows, sh on Linux). Compare the actual output to the expected target. Check relayProtocol: both endpoints must run the updated source and negotiate 2 for endpoint delivery acknowledgements and retransmission. Protocol 1 is legacy compatibility without this fix. A stale relay status is not proof of connectivity. Then report verified target and available capabilities; never output credentials.",
   },
   "remote-operate": {
     description: "Use command, file and persistent-session tools correctly",
@@ -21,7 +21,7 @@ const workflows = {
   },
   "remote-recover": {
     description: "Recover from timeout, disconnect or failed deployment",
-    text: "Read the exact error stage, then ssh_connection_status and a harmless identity probe. Sessions and tunnels terminate when their SSH connection fails. Reconnect creates a new connection and cannot resume an earlier task. Inspect target files, service state, backup manifest and checksums before retrying. Database restore/import may already have partially changed data; never retry blindly. Keep credentials private and re-import a new connection block when the pinned host key actually changes.",
+    text: "Read the exact error stage and private near-events.jsonl/far-events.jsonl metadata (cid, sequence, retries and reset reason), then ssh_connection_status and a harmless identity probe. Broker PUBACK does not prove delivery to the other endpoint. Distinguish broker_offline, peer_restarted, delivery_ack_timeout and capacity; at most eight SSH streams are supported. Sessions and tunnels terminate when their SSH connection fails. Reconnect creates a new connection and cannot resume an earlier task. Inspect target files, service state, backup manifest and checksums before retrying. Database restore/import may already have partially changed data; never retry blindly. Keep credentials private and re-import a new connection block when the pinned host key actually changes.",
   },
 };
 export function registerPrompts(server) {
