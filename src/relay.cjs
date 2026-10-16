@@ -442,7 +442,10 @@ function createRelay(config, role) {
     trace("mqtt_error", null, { error: error.message });
     events.emit("diagnostic", error.message);
   });
-  client.on("close", () => {
+  // MQTT.js installs its own close listener in the constructor and arms the
+  // retry timer there. Update the period BEFORE it runs, so logged/actual
+  // delays agree rather than applying one failed connection late.
+  client.prependListener("close", () => {
     clearTimeout(stableTimer);
     if (!stopping && client.options) {
       const delay = Math.min(60000, 2000 * 2 ** Math.min(reconnectFailures++, 5));

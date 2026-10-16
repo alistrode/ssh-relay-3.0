@@ -1,5 +1,7 @@
 # 当前公网近远端与 MCP
 
+配对式增强预览版：保留现有 MQTT＋SSH，无需注册账号、购买服务或自建服务器。提供已配对电脑记忆、指定目标自动恢复、双端托盘、自启动开关及诊断入口。下载 `deliverables/paired-windows-x64.zip` 或 `paired-linux-x64.tar.gz`，独立解压，不覆盖现有实例。内置 Node 22，首次自动下载并校验桌面组件；它不是完全离线包。详见 [增强版手册](docs/PAIRED-RELAY-MANUAL.md) 和 [逐条需求](docs/PAIRED-RELAY-REQUIREMENTS.md)。验收状态以实际结果为准，历史十分钟通过不能替代新版一小时验收。
+
 私有工作分支 `recovery/current-public-relay-mcp`，主分支与纯源码分支未改。保留当前 MQTT 公网连接，复现稳定版 MCP SSH Manager 的全部 37 个工具，补齐提示词、连接 Skill 和操作说明；不引入局域网功能。
 
 免安装运行包（内置 Node.js）和桌面图标：见 [下载与双击启动](deliverables/README.md)，Windows、Linux 分开下载。以下 npm 步骤用于源码开发。

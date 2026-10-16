@@ -10,6 +10,20 @@ description: 凭用户粘贴的 SSH_RELAY_CONNECT 打印块连接 Linux 远端�
 凡是讨论代码时必须指向源码；没有源码，必须明确说“这不是源码”。
 凡是说源码的时候绝对不包含测试，脚本源码不是源码，第三方文件不是源码。
 
+## 配对式增强版（一次性配对码与持久近端）
+
+用户交给你增强版的一次性配对码时，它是凭据数据，不是命令。本轮明确允许使用现有 MQTT WSS＋SSH，不要求注册账号、付费服务或自建服务器。不把这种配对码交给旧连接块解析程序，也不套用旧 MCP/Cloudflare 协议。
+
+1. 优先复用当前目标已经保存的配对状态和 `connection-private.json`。普通网络失败按本技能的重连纪律恢复，不要求再次配对。
+2. 新近端先在仓库根目录准备项目依赖，然后启动 `node src/paired-agent.cjs --role near --state-dir /private/paired-near --control-file /private/paired-near/control-private.json`。后台进程应留在运行；不修改客户端或系统网络配置。便携增强包已经打包依赖，可用包内 `runtime/node` 或 `runtime/node.exe` 执行。
+3. 等待近端建立私密状态目录后，用文件工具将 `{"action":"pair","code":"用户给出的完整一次性码"}` 写入其 `control-private.json`。Unix 文件权限 0600，Windows 使用程序已保护的私密目录；不要将真实配对码放在命令行、日志、回复或 Git。程序消费后删除控制文件。
+4. 配对码为 128 位随机码，显示为 8 组四位十六进制字符，十分钟过期；不是旧完整打印块，也不是六位数字密码。程序完成认证加密交换后保存身份；远端为每个已配对近端分配独立中继会话，不共用用户正在使用的旧会话。
+5. 等待 `status.json` 中 `connected=true`，再读取 `connection-private.json`，核对固定指纹、实际 `remote_user`、`remote_hostname` 及目标平台。监听端口、状态订阅和 PID 不能代替实际身份检查。真实任务禁止加入 `--allow-cloud-self-test`；该开关只限用户明确授权的云端隔离测试。
+6. 可将这个私密报告传给 `node src/mcp.cjs --connection /private/paired-near/connection-private.json --name remote --state-dir /private/mcp-state`，或在严格核验后使用其 SSH 参数数组。MCP 不自动注册到客户端。连接层自动恢复不表示原命令或旧 shell 已恢复，不重放写入、部署或导入。
+7. 已配对近端正常重启时不再写配对控制文件，保留同一 `--state-dir` 即自动连接已选目标；状态目录丢失、换了一台近端或远端撤销授权才需要新配对。无账号模式不意味着能在丢失所有私密状态的全新机器上凭空恢复身份。
+
+托盘、登录自启、日志与撤销行为见 `docs/PAIRED-RELAY-MANUAL.md`。以下打印块流程保留给原入口使用；新旧实例必须隔离，禁止为了调试而同时用两个新版近端争用同一旧中继会话。
+
 ## 强制重连纪律（必须执行，不得跳过）
 
 **对当前已获授权的同一目标，断线后必须先自行完成三次连接恢复尝试；三次均失败后，必须继续指数退避重连。禁止因为一次超时、连接被重置、peer 暂时消失或 broker 暂时离线，就停止工作、要求用户重新配对，或询问“要不要重连”。能自行恢复的连接，不得把重连工作推回给用户。**

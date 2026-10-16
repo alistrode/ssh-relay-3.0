@@ -4,6 +4,8 @@
 
 ## 安装和连接
 
+增强预览版也可先在双端界面完成一次性配对，或按连接 Skill 使用 `src/paired-agent.cjs --role near --state-dir <私密目录>` 作为无桌面近端。自动连接选中主机并实际核验身份后，使用其生成的私密 `connection-private.json` 启动下方同一个 MCP 入口；不再每次导入连接块。普通断线保留配对，由近端恢复连接，MCP 读取更新的监听状态。身份异常仍须停止，不能接受变化的指纹；旧 shell 和写入操作不自动重放。具体步骤和限制见 [增强版手册](PAIRED-RELAY-MANUAL.md)。
+
 近端需要 Node.js 22+、Python 3.10+、OpenSSH 客户端和本仓库。根目录运行 `npm ci --ignore-scripts`。远端运行 `npm start`；Windows 可用 `START-REMOTE.cmd`，需要管理员操作时由用户从管理员终端启动。连接权限继承远端启动令牌，MCP 不触发 UAC、不关闭保护、不自动修改 ACL。
 
 将远端完整私密连接块保存到仓库外 0600 文件，通过对应连接 Skill 导入：
