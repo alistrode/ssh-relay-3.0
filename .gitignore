@@ -1,8 +1,4 @@
-# Runtime credentials and private connection state
-**/data/
-**/logs/
-**/node_modules/
-**/__pycache__/
-*.pyc
-/work/
-/ssh-relay-state/
+node_modules/
+dist/
+data/
+*.log
