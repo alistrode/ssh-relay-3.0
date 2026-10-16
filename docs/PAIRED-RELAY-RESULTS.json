@@ -1,0 +1,176 @@
+{
+  "scope": "isolated Linux cloud near/far via real public MQTT WSS; not user Windows acceptance",
+  "applicationSourceCommit": "c13f7857b2471667cad53ec5798f5a3cb37457cc",
+  "sourceSnapshotByteIdentical": true,
+  "applicationSourceSha256": {
+    "src/desktop/bootstrap.cjs": "8a5e5ff15548168bc573f75f677a960a33838afa7c57d0f9d1095d2954ca94b9",
+    "src/desktop/index.html": "d027dca7f9bf95d7dd2818f8ee15458e5f1f2e8cb560fd24c0ede5d22abd8d88",
+    "src/desktop/main.cjs": "30f7a99d3b003f065cec199d3d4f65c9fbeb9e3eb06eb841d931bc070ecb3e50",
+    "src/desktop/preload.cjs": "50d95de30d28d44a7a366c54af9c64272f95a23a77bb571341065af9b5005235",
+    "src/desktop/renderer.js": "a47b66fa3b36048760252b69037863176416ca6b99015a62df34025fc7ef0bce",
+    "src/desktop/style.css": "5333cae2bb84f1df7a74a6ad42116580639e984bc1d4f678524db8bc83aa2673",
+    "src/diagnostics.cjs": "bd5a5982e0be6afd62c6628f673e7ed72a63317feaddd77019485a7d12bb63a0",
+    "src/forwarding.cjs": "5b005587d41f37de1fe961ab6bfcd2bd1d13cf5c9edeeb36dca98530c7f6d5b6",
+    "src/mcp/catalog.js": "5f119ed2a5627e18906d331b09ff668104981c9ab853c86706d73f929b9bf92d",
+    "src/mcp/command-aliases.js": "e10985f2f52783f90fb28712561697755804676c3c16d5f25d86cc5088566d8e",
+    "src/mcp/config.js": "874c9b1b2b7db2ec7b94dffadc7ca8ab4997f735e9192813dffa796350d707e0",
+    "src/mcp/files.js": "c47042c2243307198909043ff9155cf91cbdf85fc5dad0996531189be5c1e8e8",
+    "src/mcp/handlers.js": "0131d546bf53ce0c7059b9f3d140385e75781ba6e9bef25b504a05fec63f88f8",
+    "src/mcp/hooks.js": "2d9ae314e3d01430ffa9a5bd8a9d60e3f6786c766613cf3197d09ca0c46ea36a",
+    "src/mcp/jobs/alerts.cjs": "e5e74570791d855d3cd3ed051802610d2350367a9f6c2b0feeb236dd2e42b744",
+    "src/mcp/jobs/backup.cjs": "434c274201c85f8287048816ff7f09129c3f06e78fdddc75b027792731ba0a2c",
+    "src/mcp/jobs/database.cjs": "0ef10009d2424adb5f50634c6fb368a2b7165b9c752e5938f423328377a24b4a",
+    "src/mcp/jobs/health.cjs": "ebb3920b88ba847fb45275fd433c0f64aec37d9bf41376801ee9f57f617ff017",
+    "src/mcp/jobs/schedule.cjs": "925bce638e342eb558644adb6c6f776604630c551dcbc6ee18b498f5504ad774",
+    "src/mcp/jobs/tail.cjs": "c3fbd45b0ce56a242eb28f4208ee12c46fa11b497f4a8062f5b02e3bc366e6a3",
+    "src/mcp/jobs.js": "3f32d641edca0012747b374e9b60ec6aca53dc266bc179f932d8106abc33ea23",
+    "src/mcp/logger.js": "d3acb1c40fc6cc45424a8376e9615fa19318d5b351adc15ad69688eb358ec346",
+    "src/mcp/package.json": "89c47db7851f89caec72da4f215ebc21cf1e294aeef3b45d2583562d846ab035",
+    "src/mcp/policy.js": "f3cdfb37eda3fdc5a1b8f8544d7a2b94bbeceda9149df6edc29d4ce79e19a56f",
+    "src/mcp/profile-loader.js": "10004c0428705737fbacf3cd9bc5ac734bb6ba451c9b74b2e42a27ce2d53309a",
+    "src/mcp/prompts.js": "9bcf2beb31db71d62aabf3960bb757b1bb5f5c8bff5577d151dde8cf8a40cf9d",
+    "src/mcp/server-aliases.js": "374d7de578dc943f0d709794c60edfa4cbb092b8ae52fce5d235942632c74b02",
+    "src/mcp/server-groups.js": "8e378c95fa63f9ff64f4ed5d25c130c8f49bacc7eb2b26974b6fed8eb5024dda",
+    "src/mcp/server.js": "2a77800ae0e8adf451bec7b7abb1651efc5d866e6b69dd4163f3e120efd00784",
+    "src/mcp/sessions.js": "55b298f624daee8a9ceb3d1c91b7f76b64ff7557e4bfb098c06ab911c5b2d9f2",
+    "src/mcp/shell-quote.js": "cdf7b6e360c2d2747bc1b0412e590b77446efcb79197300895ad0c230b23b4f9",
+    "src/mcp/state.js": "4903b63c02bf089b8ff1fdce4b4273af61e0e29eed40d1280cce293b5e1ef2df",
+    "src/mcp/tool-registry.js": "3f6a96d876f9e705ce20b0023cb10a95de7413b20b273c5d2a5ae7245ad9581a",
+    "src/mcp/transport.js": "df95738819e90fb4a534459eb361c54c3574620a97d0a5591c5a1a8201bfce7e",
+    "src/mcp/tunnels.js": "a6ac9af958aee50d7bbd6a50f4354776c68970ec4e4a7c0d5858ab35b3356b4e",
+    "src/mcp.cjs": "de22349937a6065338f48562624e625c7dc530e7a17fe6fce5d2f265f72be8f3",
+    "src/near.cjs": "10f976592d2970b08b9c0f05cab343af7528f9a770e2e41620ce704bd0d8066a",
+    "src/paired-agent.cjs": "2d801fa54876d23d11e1a2fdbfc92968df561ef24a4153f15b94b22a52d59567",
+    "src/paired-store.cjs": "9cb8e424663d20ee63ced30f2ab05ffbbe6c7497e6e1bd46fce48233d5e46148",
+    "src/pairing.cjs": "bfa2c8fa448d8eb8a8a84dab96980ddc18ebbe718610ee06c9bddcebf924719b",
+    "src/permissions.cjs": "83d7ebb74c988d9f2130ed9f8e3cfafaa6e3c43c36a94f7f379fecce81cc56e5",
+    "src/relay.cjs": "62a8810dfa225216155d48523aa5812af010dfdb1bf0520ef0f5bb4589aa64d4",
+    "src/remote.cjs": "71f14841f91e1a15266fd569eac7ec44855cb0da8e74fadb13f3e1e0b588e839",
+    "src/sftp.cjs": "1b6ea0513acaac07c6c145d9408a0b74f5215ff6ea51b78bd67ddf95044b73c3",
+    "src/start.cjs": "0a6f3805fb77bc2023290e7885ad3916b3409560dafcfe857f5b688d2b3bf7c5"
+  },
+  "protocol": 2,
+  "registrationRequired": false,
+  "selfHostedServerRequired": false,
+  "oneHour": {
+    "passed": true,
+    "cloudSelfTest": true,
+    "startedAtUtc": "2026-10-16T22:41:38.352Z",
+    "seconds": 3623.700234112,
+    "sshProbes": 108,
+    "sftpRoundtrips": 54,
+    "bytesEach": 65536,
+    "allContentChecksPassed": true,
+    "failures": [],
+    "longConnections": {
+      "idle": 0,
+      "activeTicks": 722,
+      "active": 0
+    },
+    "clientKeepaliveEnabled": false
+  },
+  "resources": {
+    "nearRssKiBFirst": 79752,
+    "nearRssKiBLast": 74892,
+    "nearRssKiBMax": 83172,
+    "samples": 54
+  },
+  "diagnosticCounts": {
+    "retransmissions": 70,
+    "reorderedFrames": 244,
+    "mqttOffline": 0,
+    "streamResetCategories": {}
+  },
+  "lifecycle": {
+    "passed": true,
+    "cloudSelfTest": true,
+    "cases": [
+      {
+        "name": "first-pair-and-pinned-real-ssh",
+        "passed": true,
+        "milliseconds": 11521
+      },
+      {
+        "name": "second-independent-pair-does-not-reset-first",
+        "passed": true,
+        "milliseconds": 17363
+      },
+      {
+        "name": "duplicate-manager-refused",
+        "passed": true,
+        "milliseconds": 2604
+      },
+      {
+        "name": "near-restart-keeps-pair-and-host-identity",
+        "passed": true,
+        "milliseconds": 10603
+      },
+      {
+        "name": "remote-worker-crash-automatically-recovers-both-nears",
+        "passed": true,
+        "milliseconds": 11028
+      },
+      {
+        "name": "remote-manager-restart-restores-all-paired-links",
+        "passed": true,
+        "milliseconds": 12067
+      },
+      {
+        "name": "revoke-all-removes-old-access-and-repairs",
+        "passed": true,
+        "milliseconds": 48334
+      }
+    ]
+  },
+  "flapping": {
+    "passed": true,
+    "cloudSelfTest": true,
+    "crashes": 4,
+    "retryDelaysMs": [
+      1876,
+      1677,
+      1668,
+      3356
+    ],
+    "stableResetWindowMs": 60000
+  },
+  "brokerFault": {
+    "passed": true,
+    "cloudSelfTest": true,
+    "normalProxyPreserved": true,
+    "onlyTestNearAffected": true,
+    "outageMs": 12000,
+    "recoveryMs": 20019,
+    "pairingPreserved": true,
+    "maxRetryTimerSkewMs": 6
+  },
+  "mcp": {
+    "passed": true,
+    "cloudSelfTest": true,
+    "toolNames": 37,
+    "prompts": 5,
+    "resources": 1,
+    "calls": 5,
+    "roundtripBytes": 32768
+  },
+  "windows": {
+    "legacyPinnedIdentityVerified": true,
+    "isolatedDesktopAccepted": false,
+    "isolatedPairingPending": true,
+    "actualBootTested": false
+  },
+  "linuxDesktop": {
+    "runtimePreparationVerified": true,
+    "trayManuallyVerified": false,
+    "actualBootTested": false
+  },
+  "limits": [
+    "Public broker has no SLA; a one-hour pass is not a perpetual availability guarantee.",
+    "Autostart is after user login, not a before-login system service.",
+    "Original website reachability was not accepted in this task.",
+    "Database business operations and scheduler registration remain unvalidated.",
+    "Per-near relay sessions are isolated; SSH client authorization key is shared per remote; GUI revocation currently revokes all pairings."
+  ],
+  "rawLogsCommitted": false,
+  "credentialsIncluded": false
+}

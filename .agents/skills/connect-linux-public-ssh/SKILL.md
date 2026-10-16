@@ -19,7 +19,7 @@ description: 凭用户粘贴的 SSH_RELAY_CONNECT 打印块连接 Linux 远端�
 3. 等待近端建立私密状态目录后，用文件工具将 `{"action":"pair","code":"用户给出的完整一次性码"}` 写入其 `control-private.json`。Unix 文件权限 0600，Windows 使用程序已保护的私密目录；不要将真实配对码放在命令行、日志、回复或 Git。程序消费后删除控制文件。
 4. 配对码为 128 位随机码，显示为 8 组四位十六进制字符，十分钟过期；不是旧完整打印块，也不是六位数字密码。程序完成认证加密交换后保存身份；远端为每个已配对近端分配独立中继会话，不共用用户正在使用的旧会话。
 5. 等待 `status.json` 中 `connected=true`，再读取 `connection-private.json`，核对固定指纹、实际 `remote_user`、`remote_hostname` 及目标平台。监听端口、状态订阅和 PID 不能代替实际身份检查。真实任务禁止加入 `--allow-cloud-self-test`；该开关只限用户明确授权的云端隔离测试。
-6. 可将这个私密报告传给 `node src/mcp.cjs --connection /private/paired-near/connection-private.json --name remote --state-dir /private/mcp-state`，或在严格核验后使用其 SSH 参数数组。MCP 不自动注册到客户端。连接层自动恢复不表示原命令或旧 shell 已恢复，不重放写入、部署或导入。
+6. 在完整仓库或 source.zip 工程准备依赖后，可将这个私密报告传给 `node src/mcp.cjs --connection /private/paired-near/connection-private.json --name remote --state-dir /private/mcp-state`，或在严格核验后使用其 SSH 参数数组。MCP 不自动注册到客户端。连接层自动恢复不表示原命令或旧 shell 已恢复，不重放写入、部署或导入。
 7. 已配对近端正常重启时不再写配对控制文件，保留同一 `--state-dir` 即自动连接已选目标；状态目录丢失、换了一台近端或远端撤销授权才需要新配对。无账号模式不意味着能在丢失所有私密状态的全新机器上凭空恢复身份。
 
 托盘、登录自启、日志与撤销行为见 `docs/PAIRED-RELAY-MANUAL.md`。以下打印块流程保留给原入口使用；新旧实例必须隔离，禁止为了调试而同时用两个新版近端争用同一旧中继会话。

@@ -28,6 +28,8 @@
 
 近端实际验证身份后生成私密 `connection-private.json`，可供现有 `src/mcp.cjs --connection ...` 使用。进程重启时监听端口可能变化，MCP 读取最新 runtime.json；客户端还须遵守先核对任务结果、再决定下一步的规则。37 个原有工具及其业务依赖范围仍以 MCP-MANUAL.md 和 MCP-VALIDATION.md 为准，本版没有补做数据库业务或系统计划任务验收。
 
+便携增强包交付近远端连接程序和桌面界面；完整 MCP 服务及其依赖清单在仓库或 `source.zip` 中，由 AI 近端按 MCP-MANUAL.md 准备项目依赖。远端使用者运行便携包不需要安装 Node 或 npm。不要在只有便携连接程序的目录里假称已经启动完整 MCP 服务。
+
 ## 验收
 
 `npm run test:pairing` 检查认证加密、错误码/篡改/过期拒绝及私密保存；`tests/paired-lifecycle.cjs` 经真实公共 WSS 验证多配对、进程恢复和撤销；`tests/paired-proxy-fault.cjs` 仅切断自身测试近端经原正常代理路径的连接，验证中继断线自动恢复；`tests/paired-soak.cjs` 用实际固定 SSH 身份、长连接和文件往返进行至少 3600 秒验收。这些测试辅助程序不属于应用 `src/`。

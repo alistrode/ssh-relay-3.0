@@ -21,11 +21,13 @@ def main():
         files={str(p.relative_to(stage)):p.read_bytes() for p in stage.rglob('*') if p.is_file()}
         for name in ['src/desktop/preload.cjs','src/desktop/index.html','src/desktop/style.css','src/desktop/renderer.js','desktop-package/package.json','assets/paired.png','assets/relay.ico','assets/electron-runtime-inputs.json','docs/PAIRED-RELAY-MANUAL.md','docs/PAIRED-RELAY-REQUIREMENTS.md']:
             files[name]=(ROOT/name).read_bytes()
+        for name in ['docs/PAIRED-RELAY-VALIDATION.md','docs/PAIRED-RELAY-RESULTS.json']:
+            if (ROOT/name).is_file(): files[name]=(ROOT/name).read_bytes()
         for p in (ROOT/'node_modules').rglob('*'):
             if p.is_file() and p.name.upper().startswith(('LICENSE','NOTICE','COPYING')):
                 files['licenses/'+str(p.relative_to(ROOT/'node_modules'))]=p.read_bytes()
         hashes={name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest() for name in subprocess.check_output(['git','ls-files','--cached','--others','--exclude-standard','src','assets/electron-runtime-inputs.json'],cwd=ROOT,text=True).splitlines() if (ROOT/name).is_file()}
-        files['BUILD.json']=(json.dumps({'version':'2.0.0-preview.1','transport':'existing MQTT WSS + SSH protocol 2','registrationRequired':False,'selfHostedServerRequired':False,'includedRuntime':'official Node 22 bootstrap','firstRunDownload':'Electron 44.8.0, pinned official SHA-256; no global install','applicationSourceSha256':hashes},indent=2)+'\n').encode()
+        files['BUILD.json']=(json.dumps({'version':'2.0.0-preview.1','applicationSourceCommit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'transport':'existing MQTT WSS + SSH protocol 2','registrationRequired':False,'selfHostedServerRequired':False,'includedRuntime':'official Node 22 bootstrap','firstRunDownload':'Electron 44.8.0, pinned official SHA-256; no global install','applicationSourceSha256':hashes},indent=2)+'\n').encode()
         for platform in ['windows','linux']:
             content=files.copy()
             with zipfile.ZipFile(OUT/('remote-'+platform+'-x64.zip')) as old:

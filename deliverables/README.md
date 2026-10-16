@@ -24,3 +24,9 @@ Linux 图标被 Vim 打开：下载 **linux-launcher-fix.tar.gz** 小补丁，�
 near-far-minimal.zip 是之前不含 Node 的旧包，保留供已有运行环境使用；现在优先下载带明确平台名称的新包。
 
 重新打包：安装开发依赖后先运行 python3 scripts/package-minimal.py，再运行 python3 scripts/package-portable.py。后者从 nodejs.org 下载 assets/node-runtime-inputs.json 固定的官方文件并校验 SHA-256，缓存于被忽略的 .node-runtime-cache/；也可传入缓存目录作为第一个参数。
+
+## 完整离线增强版
+
+源码为 `source.zip`。`offline-parts/` 已完整收录 Windows/Linux x64 的应用及官方 Node/Electron 运行时；每卷最多 90 MiB，使用其中对应 ASSEMBLE 脚本在本地合并并校验，再解压运行。完整离线包不需要首次下载界面组件。根目录 `paired-*-x64.zip` 为较小的首次下载组件版，勿与完整离线分卷混淆。完整本地离线 ZIP 与分卷 SHA-256 见 `offline-parts/MANIFEST.json`。
+
+增强版冻结源码一小时公网云端验收通过（3623 秒、108 次 SSH、54 次文件往返）；Windows 桌面及开机实测仍待完成，详见 `docs/PAIRED-RELAY-VALIDATION.md`。

@@ -16,3 +16,6 @@ data/
 runtime-electron/
 .electron-setup/
 .runtime-setup-status.json
+
+# Full local offline ZIPs are uploaded losslessly as <=90 MiB parts.
+deliverables/paired-*-x64-offline.zip
