@@ -22,6 +22,7 @@ let settings = load(path.join(root, 'settings.json'), { autoConnect: true, selec
 let view = { role, phase: 'starting', connected: false, attempt: 0, nextRetryAt: null, lastError: null };
 const log = createTraceWriter(root, role + '-manager');
 let stopping = false, relay, listener, ssh, worker, pair, timer, healthTimer, retryTimer;
+let workerStableTimer;
 let generation = 0, failures = 0, workerFailures = 0, nextConnecting = false, identityBlocked = false;
 const sockets = new Set();
 const logEvent = (event, details = {}) => log({ event, ...details });
@@ -146,7 +147,7 @@ async function startNear() {
     if (current !== generation || stopping || identityBlocked || nextConnecting || ssh) return;
     nextConnecting = true;
     const client = new Client(); ssh = client;
-    let verified = false, finished = false, lastCode = 'connection_lost';
+    let verified = false, finished = false, lastCode = 'connection_lost', verifiedAt = 0;
     publish({ phase: 'connecting', nextRetryAt: null }); logEvent('ssh_connecting', { attempt: failures + 1 });
     function failed(code) {
       if (finished) return; finished = true; nextConnecting = false;
@@ -177,11 +178,12 @@ async function startNear() {
           if (identity && (identity.user !== lines[0] || identity.hostname.toLowerCase() !== lines[1].toLowerCase())) return failed('identity_mismatch');
           if (!identity) save(path.join(folder, 'identity.json'), { user: lines[0], hostname: lines[1] });
           if (!verified) {
-            verified = true; nextConnecting = false; failures = 0;
+            verified = true; verifiedAt = Date.now(); nextConnecting = false;
             logEvent('ssh_identity_verified');
             const argv = ['ssh', '-F', os.devNull, '-o', 'BatchMode=yes', '-o', 'IdentitiesOnly=yes', '-o', 'StrictHostKeyChecking=yes', '-o', 'UserKnownHostsFile=' + path.join(folder, 'known_hosts'), '-o', 'HostKeyAlias=' + alias, '-o', 'ConnectTimeout=20', '-i', path.join(folder, 'client_key'), '-p', String(port), 'relay@127.0.0.1'];
             save(path.join(root, 'connection-private.json'), { connected: true, target: info.target, remote_user: lines[0], remote_hostname: lines[1], host_fingerprint: info.fingerprint, cloud_self_test: lines[1].toLowerCase() === os.hostname().toLowerCase(), state_directory: folder, ssh_argv: argv });
           }
+          if (Date.now() - verifiedAt >= 60000) failures = 0;
           publish({ phase: 'connected', connected: true, remoteUser: lines[0], remoteHostname: lines[1], fingerprint: info.fingerprint, protocol: 2, attempt: 0, nextRetryAt: null, lastError: null, lastVerifiedAt: Date.now() });
           healthTimer = setTimeout(probe, 15000);
         });
@@ -197,26 +199,32 @@ async function startNear() {
 }
 function startFar() {
   if (stopping) return;
-  publish({ phase: 'starting', connected: false });
+  publish({ phase: 'starting', connected: false, activeSshClients: 0 });
   worker = fork(path.join(__dirname, 'start.cjs'), [], { env: { ...process.env, RELAY_STATE_DIR: path.join(root, 'far'), RELAY_NO_PRINT: '1' }, silent: true, windowsHide: true });
   publish({ workerPid: worker.pid });
   // Child writes only private trace metadata to its own rotating sink.
   worker.stdout.resume(); worker.stderr.resume();
   worker.on('message', message => {
+    if (stopping) return;
     if (message.type === 'ready') {
-      workerFailures = 0;
+      if (!workerStableTimer) {
+        workerStableTimer = setTimeout(() => { workerFailures = 0; workerStableTimer = null; }, 60000);
+        workerStableTimer.unref();
+      }
       for (const link of load(path.join(root, 'paired-links-private.json'), [])) worker?.send({ type: 'add-link', session: link.session, secret: link.secret });
-      publish({ phase: 'listening', fingerprint: message.fingerprint, protocol: message.protocol, nextRetryAt: null, lastError: null });
+      publish({ phase: view.activeSshClients ? 'connected' : 'listening', connected: !!view.activeSshClients, fingerprint: message.fingerprint, protocol: message.protocol, nextRetryAt: null, lastError: null });
     }
     if (message.type === 'link-error') publish({ lastError: 'paired_link_error' });
-    if (message.type === 'offline') publish({ phase: 'relay_offline' });
+    if (message.type === 'ssh-clients' && Number.isInteger(message.count) && message.count >= 0) publish({ activeSshClients: message.count, connected: message.count > 0, phase: message.count > 0 ? 'connected' : 'listening' });
+    if (message.type === 'offline') { clearTimeout(workerStableTimer); workerStableTimer = null; if (!view.activeSshClients) publish({ phase: 'relay_offline', connected: false }); }
   });
   worker.on('error', () => logEvent('worker_start_error'));
   worker.on('exit', (code, signal) => {
+    clearTimeout(workerStableTimer); workerStableTimer = null;
     worker = null; if (stopping) return;
     const wait = delay(++workerFailures);
     logEvent('worker_exit', { code, signal, delayMs: wait });
-    publish({ phase: 'retry_wait', connected: false, nextRetryAt: Date.now() + wait, lastError: 'remote_process_exited' });
+    publish({ phase: 'retry_wait', connected: false, activeSshClients: 0, nextRetryAt: Date.now() + wait, lastError: 'remote_process_exited' });
     timer = setTimeout(startFar, wait);
   });
 }
@@ -250,6 +258,7 @@ function fatal() { logEvent('manager_error'); publish({ phase: 'error', connecte
 function shutdown() {
   if (stopping) return; stopping = true;
   clearTimeout(timer); pair?.close(); stopNear();
+  clearTimeout(workerStableTimer);
   if (worker?.connected) worker.send({ type: 'shutdown' });
   const activeWorker = worker;
   setTimeout(() => { if (activeWorker?.exitCode === null && activeWorker?.signalCode === null) activeWorker.kill(); }, 2000).unref();

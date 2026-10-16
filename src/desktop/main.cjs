@@ -22,6 +22,7 @@ app.setPath('userData', path.join(root, 'desktop'));
 if (!app.requestSingleInstanceLock()) { app.quit(); } else {
   let win, tray, agent, quitting = false, state = { role, phase: 'starting', targets: [] }, pair = null;
   let restartTimer, restartAttempt = 0;
+  let agentStableTimer;
   const title = role === 'near' ? 'SSH Relay · 近端' : 'SSH Relay · 远端';
   const appRoot = path.resolve(__dirname, '../..');
   const application = path.join(appRoot, 'desktop-package');
@@ -94,13 +95,19 @@ if (!app.requestSingleInstanceLock()) { app.quit(); } else {
     agent.stdout.resume(); agent.stderr.resume();
     desktopLog({ event: 'agent_started', pid: agent.pid });
     agent.on('message', message => {
-      if (message.type === 'status') { state = message.status; if (state.phase === 'connected' || state.phase === 'listening') restartAttempt = 0; }
+      if (message.type === 'status') {
+        state = message.status;
+        if (state.phase === 'connected' || state.phase === 'listening') {
+          if (!agentStableTimer) { agentStableTimer = setTimeout(() => { restartAttempt = 0; agentStableTimer = null; }, 60000); agentStableTimer.unref(); }
+        } else { clearTimeout(agentStableTimer); agentStableTimer = null; }
+      }
       if (message.type === 'pairing') pair = message.pairing;
       update();
     });
     agent.on('error', error => desktopLog({ event: 'agent_start_error', ...errorMetadata(error) }));
     agent.on('exit', (code, signal) => {
       desktopLog({ event: 'agent_exit', code, signal });
+      clearTimeout(agentStableTimer); agentStableTimer = null;
       agent = null; if (quitting) return;
       state = { ...state, connected: false, phase: 'manager_restarting' }; update();
       const wait = Math.min(60000, 2000 * 2 ** Math.min(restartAttempt++, 5));
@@ -121,7 +128,7 @@ if (!app.requestSingleInstanceLock()) { app.quit(); } else {
   app.on('second-instance', (_event, commandLine) => { if (!commandLine.includes('--background')) show(); });
   app.on('window-all-closed', () => {});
   app.on('before-quit', () => {
-    quitting = true; clearTimeout(restartTimer); agent?.send({ action: 'quit' });
+    quitting = true; clearTimeout(restartTimer); clearTimeout(agentStableTimer); agent?.send({ action: 'quit' });
     setTimeout(() => agent?.kill(), 2500).unref(); tray?.destroy();
   });
   app.whenReady().then(() => {

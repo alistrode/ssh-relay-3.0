@@ -32,6 +32,7 @@ var fingerprint =
     .replace(/=+$/, "");
 var children = /* @__PURE__ */ new Set();
 var clients = /* @__PURE__ */ new Set();
+var authenticatedClients = new Set();
 var recordTrace = createTraceWriter(root, "far");
 var nextSshId = 0;
 var traceSsh = (event, details = {}) => {
@@ -55,6 +56,8 @@ var server = new Server({ hostKeys: [hostKey] }, (client, info) => {
   client.on("close", () => {
     traceSsh("close", { sshId });
     clients.delete(client);
+    authenticatedClients.delete(client);
+    process.send?.({ type: 'ssh-clients', count: authenticatedClients.size });
   });
   client.on("authentication", (ctx) => {
     if (
@@ -70,6 +73,8 @@ var server = new Server({ hostKeys: [hostKey] }, (client, info) => {
     ctx.accept();
   });
   client.on("ready", () => {
+    authenticatedClients.add(client);
+    process.send?.({ type: 'ssh-clients', count: authenticatedClients.size });
     console.log("SSH public-key authentication succeeded.");
     traceSsh("ready", { sshId });
     attachForwarding(client);
