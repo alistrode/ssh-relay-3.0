@@ -8,6 +8,7 @@ description: 凭用户粘贴的 SSH_RELAY_CONNECT 打印块连接 Windows 10 远
 用户只需运行新版远端并提供从 SSH_RELAY_CONNECT_BEGIN 到 SSH_RELAY_CONNECT_END 的完整打印块。技能目录必须完整包含 scripts/connect.py 和 scripts/assets/near.cjs；近端需要终端执行能力、Python 3.10+、Node.js 22+ 与 OpenSSH 客户端。
 
 凡是讨论代码时必须指向源码；没有源码，必须明确说“这不是源码”。
+凡是说源码的时候绝对不包含测试，脚本源码不是源码，第三方文件不是源码。
 
 ## 执行
 
