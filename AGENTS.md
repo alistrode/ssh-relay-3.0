@@ -11,3 +11,5 @@
 稳定性修复与证据见 docs/MCP-STABILITY-RESULTS.json、docs/MCP-VALIDATION.md。历史单轮通过不能代替新验收；环境中断或不完整记录不算通过。两端均更新并协商 relayProtocol=2 才具备接收端 ACK/重传能力，不能把协议 1 兼容连接说成已修复。near-events.jsonl / far-events.jsonl 仅留私密运行目录，不提交；元数据按 cid/seq 对照，PUBACK 不是接收端交付凭证。
 
 用户最新明确要求交付最小可用包：允许 deliverables/ 下提交脱敏运行 ZIP、源码 ZIP 和校验文件。此例外不允许提交 data/、私钥、连接块、原始日志、node_modules 或散装 dist/。
+
+当前已授权连接断开时，必须执行对应连接 Skill 的“强制重连纪律”：先自行实际重连三次，失败后按 2、4、8、16、30、60 秒指数退避继续恢复，不因普通超时索要密码、新连接块或用户确认。复用已保存身份并严格验证目标；仅重连与只读核验，不重放用户有副作用的操作。
