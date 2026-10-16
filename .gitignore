@@ -19,3 +19,6 @@ runtime-electron/
 
 # Full local offline ZIPs are uploaded losslessly as <=90 MiB parts.
 deliverables/paired-*-x64-offline.zip
+
+__pycache__/
+*.pyc
