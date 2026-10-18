@@ -1,0 +1,28 @@
+{
+  "versionCategory": "3.0",
+  "application": "公网中继＋MCP",
+  "sourceSnapshot": "a4284dfe0bc2a002df1a2b1f23f5bd6062b16920",
+  "sourceApplicationBytesChanged": false,
+  "runtimePackages": [
+    {
+      "file": "linux-x64.tar.gz",
+      "bytes": 51667984,
+      "sha256": "59c1716194a3e2bbaa2cdce9fa84ed3463b0ab1c77f7d1640874a4448a50deda",
+      "gitBlob": "aa0434cb390105b3c0a9bad54b18a6bf9843a935"
+    },
+    {
+      "file": "windows-x64.zip",
+      "bytes": 42478917,
+      "sha256": "e5849d6547979e6aacb6e923360a17cf6eeb008dcc1be33edfbe3c200c240805",
+      "gitBlob": "fcddb17f78a18a1c319bac45fbe7ccd7a67aad39"
+    }
+  ],
+  "validation": {
+    "publicCloudNearFar": true,
+    "nativeWindowsTested": false,
+    "oneHourRequired": false,
+    "oneHourRun": false,
+    "note": "Windows 本次仅完成包结构、源码与依赖核对，未做 Windows 实机启动验收。 运行包包含完整稳定中继、MCP 实现和生产依赖；不交付配对 GUI 预览包。"
+  },
+  "packagingOnlyChanges": "Include unchanged MCP modules and locked production dependencies in existing stable relay platform packages."
+}
