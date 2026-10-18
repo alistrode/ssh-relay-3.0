@@ -24,5 +24,84 @@
     "oneHourRun": false,
     "note": "Windows 本次仅完成包结构、源码与依赖核对，未做 Windows 实机启动验收。 运行包包含完整稳定中继、MCP 实现和生产依赖；不交付配对 GUI 预览包。"
   },
-  "packagingOnlyChanges": "Include unchanged MCP modules and locked production dependencies in existing stable relay platform packages."
+  "packagingOnlyChanges": "Include unchanged MCP modules and locked production dependencies in existing stable relay platform packages.",
+  "repositoryDownloadChecksumVerified": true,
+  "staticChecks": {
+    "linux-x64.tar.gz": {
+      "singleTopLevelFolder": true,
+      "files": 4740,
+      "applicationSourceFilesByteMatched": 38,
+      "sha256": "59c1716194a3e2bbaa2cdce9fa84ed3463b0ab1c77f7d1640874a4448a50deda",
+      "bytes": 51667984,
+      "privateRuntimeStateAbsent": true
+    },
+    "windows-x64.zip": {
+      "singleTopLevelFolder": true,
+      "files": 4740,
+      "applicationSourceFilesByteMatched": 38,
+      "sha256": "e5849d6547979e6aacb6e923360a17cf6eeb008dcc1be33edfbe3c200c240805",
+      "bytes": 42478917,
+      "privateRuntimeStateAbsent": true
+    }
+  },
+  "finalRepositoryPackagePublicCheck": {
+    "version": "3.0",
+    "publicBroker": "wss://broker.emqx.io:8084/mqtt",
+    "cloudSelfTest": true,
+    "downloadedFarPackage": true,
+    "bundledRuntime": true,
+    "checks": [
+      {
+        "name": "public_ssh_pinned_identity",
+        "passed": true,
+        "protocol": 2
+      },
+      {
+        "name": "sftp_64k_sha256_roundtrip",
+        "passed": true,
+        "sha256": "d80b67824564b6168a638f028db6f04ecd6b9c72d88b80a252d7cdab1fd256b8",
+        "exit": 0
+      },
+      {
+        "name": "idle_without_keepalive",
+        "passed": true,
+        "exit": 0,
+        "requestedSeconds": 10,
+        "measuredSeconds": 22.35,
+        "activeProbes": 1
+      }
+    ],
+    "passed": true
+  },
+  "finalMcpSmoke": {
+    "passed": true,
+    "checks": [
+      {
+        "name": "discovery",
+        "passed": true,
+        "tools": 37,
+        "prompts": 5
+      },
+      {
+        "name": "public_ssh_execute",
+        "passed": true
+      },
+      {
+        "name": "ssh_upload",
+        "passed": true
+      },
+      {
+        "name": "ssh_download",
+        "passed": true
+      }
+    ],
+    "downloadedPackage": true,
+    "bundledRuntime": true,
+    "installedAdditionalDependencies": false
+  },
+  "fullMcpIntegration": {
+    "calls": 54,
+    "passed": true,
+    "toolNames": 37
+  }
 }
